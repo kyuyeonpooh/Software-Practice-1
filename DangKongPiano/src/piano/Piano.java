@@ -71,7 +71,7 @@ public class Piano {
   }
   
   public int [] getKeyEvents() {
-    return keyEvents;
+    return this.keyEvents;
   }
   
   public void setButtonBounds() {
@@ -84,7 +84,7 @@ public class Piano {
   }
   
   public int [] getButtonBounds() {
-    return buttonBounds;
+    return this.buttonBounds;
   }
 
   public void setKeyboards() throws IOException {
@@ -97,7 +97,7 @@ public class Piano {
   }
   
   public ArrayList<Keyboard> getKeyboards() {
-    return keyboards;
+    return this.keyboards;
   }
 
 }
