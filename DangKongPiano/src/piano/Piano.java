@@ -35,7 +35,6 @@ public class Piano {
     frame.setVisible(false);
     frame.setTitle("DangKong Piano");
     frame.getContentPane().setLayout(null);
-
   }
 
   public JFrame getFrame() {

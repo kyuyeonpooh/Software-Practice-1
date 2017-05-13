@@ -15,7 +15,6 @@ public class Pedal {
 
   private Color color;
   private static boolean pedaled;
-
   private AbstractAction pressed;
   private JButton button;
 
