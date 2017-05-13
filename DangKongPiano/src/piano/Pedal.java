@@ -13,63 +13,62 @@ import java.awt.Font;
 
 public class Pedal {
 
-	  private Color color;
-	  private static boolean pedaled;
-	  
-	  private AbstractAction pressed;
-	  private JButton button;
+  private Color color;
+  private static boolean pedaled;
 
-	public Pedal(int keyCode, int xBound) throws IOException {
-	    this.setColor();
-	    this.setPressed();
-	    this.setButton(keyCode,xBound);
-	}
-	
-	public void setColor() {
-		this.color = Color.ORANGE;
-	}
+  private AbstractAction pressed;
+  private JButton button;
 
-	public Color getColor() {
-		return color;
-	}
+  public Pedal(int keyCode, int xBound) throws IOException {
+    this.setColor();
+    this.setPressed();
+    this.setButton(keyCode, xBound);
+  }
 
-	@SuppressWarnings("serial")
-	public void setPressed() {
-		this.pressed = new AbstractAction() {
-			public void actionPerformed(ActionEvent evt) {
-				if(pedaled) setPedaled(false);
-				else		setPedaled(true);
-			}
-		};
-	}
+  public void setColor() {
+    this.color = Color.ORANGE;
+  }
 
-	public AbstractAction getPressed() {
-		return this.pressed;
-	}
+  public Color getColor() {
+    return color;
+  }
 
-	public void setButton(int keyCode, int xBound) {
-		this.button = new JButton("PEDAL");
-		button.setFont(new Font("Arial Narrow", Font.BOLD | Font.ITALIC, 18));
-		this.button.addActionListener(this.pressed);
-	    this.button.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(keyCode, 0), "pedal");
-	    this.button.getActionMap().put( "pedal" , this.pressed);
-		this.button.setBackground(this.color);
-		this.button.setBounds(xBound, 101, 101, 101);
-	}
+  @SuppressWarnings("serial")
+  public void setPressed() {
+    this.pressed = new AbstractAction() {
+      public void actionPerformed(ActionEvent evt) {
+        if (pedaled)
+          setPedaled(false);
+        else
+          setPedaled(true);
+      }
+    };
+  }
 
-	public JButton getButton() {
-		return button;
-	}
+  public AbstractAction getPressed() {
+    return this.pressed;
+  }
 
-	public static boolean isPedaled() {
-		return pedaled;
-	}
+  public void setButton(int keyCode, int xBound) {
+    this.button = new JButton("PEDAL");
+    button.setFont(new Font("Arial Narrow", Font.BOLD | Font.ITALIC, 18));
+    this.button.addActionListener(this.pressed);
+    this.button.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(keyCode, 0), "pedal");
+    this.button.getActionMap().put("pedal", this.pressed);
+    this.button.setBackground(this.color);
+    this.button.setBounds(xBound, 101, 101, 101);
+  }
 
-	public void setPedaled(boolean pedaled) {
-		Pedal.pedaled = pedaled;
-	}
+  public JButton getButton() {
+    return button;
+  }
+
+  public static boolean isPedaled() {
+    return pedaled;
+  }
+
+  public void setPedaled(boolean pedaled) {
+    Pedal.pedaled = pedaled;
+  }
 
 }
-
-
-

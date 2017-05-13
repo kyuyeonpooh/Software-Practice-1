@@ -27,23 +27,23 @@ public class Key {
   private Pedal pedal;
 
   public Key(String melody, int keyCode, int xBound) throws IOException {
-	this.setMelody(melody);
-	this.setColor();
+    this.setMelody(melody);
+    this.setColor();
     this.setPressed();
     this.setPedal(pedal);
     this.setButton(keyCode, xBound);
   }
 
-  public void setMelody(String melody){
-	 this.melody=melody;
+  public void setMelody(String melody) {
+    this.melody = melody;
   }
-  
-  public String resetMelody(String melody) {
 
-	if(Pedal.isPedaled()) 
-	  return melody+"_Pedal";
-	else
-	  return melody;
+  public String reviseMelody(String melody) {
+
+    if (Pedal.isPedaled())
+      return melody + "_Pedal";
+    else
+      return melody;
   }
 
   public String getMelody() {
@@ -62,7 +62,7 @@ public class Key {
   }
 
   public void setSoundFile() {
-	this.soundFile = new File("./resource/pianoSound/" + this.resetMelody(melody) + ".wav");
+    this.soundFile = new File("./resource/pianoSound/" + this.reviseMelody(melody) + ".wav");
   }
 
   public File getSoundFile() {
@@ -106,7 +106,7 @@ public class Key {
           clip.start();
         } catch (IOException e) {
           e.printStackTrace();
-        }  
+        }
       }
     };
   }
@@ -130,9 +130,9 @@ public class Key {
   public JButton getButton() {
     return button;
   }
-  
+
   public void setPedal(Pedal pedal) {
-	this.pedal=pedal;
+    this.pedal = pedal;
   }
 
   public Pedal getPedal() {

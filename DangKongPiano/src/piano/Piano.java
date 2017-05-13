@@ -8,14 +8,14 @@ public class Piano {
 
   private JFrame frame;
   private Keyboard keyboard;
-  
+
   public static void main(String[] args) {
     EventQueue.invokeLater(new Runnable() {
       public void run() {
         try {
           Piano piano = new Piano();
           piano.frame.setVisible(true);
- 
+
         } catch (Exception e) {
           e.printStackTrace();
         }
@@ -34,21 +34,20 @@ public class Piano {
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setVisible(false);
     frame.setTitle("DangKong Piano");
-    frame.getContentPane().setLayout(null);   
-    
+    frame.getContentPane().setLayout(null);
+
   }
 
   public JFrame getFrame() {
     return this.frame;
   }
 
- 
   public void setKeyboard() throws IOException {
     this.keyboard = new Keyboard();
-   for(int i=0; i<=keyboard.getMelodies().length; i++)
-    frame.getContentPane().add(keyboard.getButtons()[i]);	   
+    for (int i = 0; i <= keyboard.getMelodies().length; i++)
+      frame.getContentPane().add(keyboard.getButtons()[i]);
   }
-  
+
   public Keyboard getKeyboards() {
     return this.keyboard;
   }

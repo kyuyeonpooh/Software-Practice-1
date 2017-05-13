@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 
 public class Keyboard extends Pedal{
+  
 	private String [] melodies;
 	private int [] keyEvents;
 	private int [] buttonBounds;
@@ -15,10 +16,10 @@ public class Keyboard extends Pedal{
 	
 	public Keyboard() throws IOException {
 		super(KeyEvent.VK_SPACE, 970);
-	    this.setMelodies();
-	    this.setKeyEvents();
-	    this.setButtonBounds();
-	    this.setKeyboards(); 
+	  this.setMelodies();
+	  this.setKeyEvents();
+	  this.setButtonBounds();
+	  this.setKeyboards(); 
 	}
 	
 	  public void setMelodies() {
@@ -68,16 +69,17 @@ public class Keyboard extends Pedal{
 
 	  public void setKeyboards() throws IOException {
 	    this.keyboard = new ArrayList<Key> ();
-	    this.buttons = new JButton[melodies.length+1];
+	    this.buttons = new JButton[melodies.length + 1];
 	    for(int i = 0; i < melodies.length; i++){
 	      Key key = new Key(melodies[i], keyEvents[i], buttonBounds[i]);
 	      this.keyboard.add(key);
-	      buttons[i]=key.getButton();
+	      buttons[i] = key.getButton();
 	    }
-	    buttons[melodies.length]=getButton();
+	    buttons[melodies.length] = getButton();
 	  }
-
+	  
 	  public JButton[] getButtons(){
 		  return this.buttons;
-	  } 
+	  }
+	  
 }
