@@ -12,18 +12,19 @@ public class Keyboard extends Pedal{
 	private int [] keyEvents;
 	private int [] buttonBounds;
 	private ArrayList<Key> keyboard;
-	private JButton[] buttons;
+	private JButton [] buttons;
 	
-	public Keyboard() throws IOException {	  
-		super(KeyEvent.VK_SPACE, 970);
+	public Keyboard() throws IOException { 
+		super();
 	  this.setMelodies();
 	  this.setKeyEvents();
 	  this.setButtonBounds();
-	  this.setKeyboards(); 
+	  this.setKeyboard(); 
+	  this.setButtons();
 	}
 	
 	public void setMelodies() {
-	  this.melodies = new String[]{
+	  this.melodies = new String []{
 	    "A0", "B0Flat", "B0", "C1", "C1Sharp",
 	    "D1", "E1Flat", "E1", "F1", "F1Sharp",
 	    "G1", "A1Flat", "A1", "B1Flat", "B1",
@@ -33,7 +34,7 @@ public class Keyboard extends Pedal{
 	  };
 	}
 	  
-	public String[] getMelodies() {
+	public String [] getMelodies() {
 	  return this.melodies;
 	}
 	  
@@ -67,18 +68,27 @@ public class Keyboard extends Pedal{
 	  return this.buttonBounds;
 	}
 
-  public void setKeyboards() throws IOException {
-    this.keyboard = new ArrayList<Key> ();
-    this.buttons = new JButton[melodies.length + 1];
+  public void setKeyboard() throws IOException {
+    this.keyboard = new ArrayList<Key> ();    
     for(int i = 0; i < melodies.length; i++){
       Key key = new Key(melodies[i], keyEvents[i], buttonBounds[i]);
       this.keyboard.add(key);
-      buttons[i] = key.getButton();
     }
-    buttons[melodies.length] = getButton();
+  }
+  
+  public ArrayList<Key> getKeyboard(){
+    return this.keyboard;
+  }
+  
+  public void setButtons() {
+    this.buttons = new JButton[melodies.length + 1];
+    for(int i = 0; i < melodies.length; i++){
+      buttons[i] = this.keyboard.get(i).getButton();
+    }
+    buttons[melodies.length] = super.getButton();
   }
 	  
-  public JButton[] getButtons(){
+  public JButton [] getButtons() {
 	  return this.buttons;
   }
 	  

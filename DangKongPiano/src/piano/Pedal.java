@@ -3,6 +3,7 @@ package piano;
 import java.awt.Color;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 import javax.swing.AbstractAction;
@@ -12,16 +13,27 @@ import javax.swing.KeyStroke;
 import java.awt.Font;
 
 public class Pedal {
+  
+  private static boolean isPedaled;
 
-  private Color color;
-  private static boolean pedaled;
+  private Color color;  
   private AbstractAction pressed;
   private JButton button;
 
-  public Pedal(int keyCode, int xBound) throws IOException {
+  public Pedal() {
+    this.setIsPedaled(false);
     this.setColor();
     this.setPressed();
-    this.setButton(keyCode, xBound);
+    this.setButton();
+  }
+  
+  public void setIsPedaled(boolean isPedaled) {
+    Pedal.isPedaled = isPedaled;
+  }
+  
+  
+  public static boolean getIsPedaled() {
+    return isPedaled;
   }
 
   public void setColor() {
@@ -35,11 +47,12 @@ public class Pedal {
   @SuppressWarnings("serial")
   public void setPressed() {
     this.pressed = new AbstractAction() {
+      @Override
       public void actionPerformed(ActionEvent evt) {
-        if (pedaled)
-          setPedaled(false);
+        if (isPedaled)
+          setIsPedaled(false);
         else
-          setPedaled(true);
+          setIsPedaled(true);
       }
     };
   }
@@ -48,26 +61,18 @@ public class Pedal {
     return this.pressed;
   }
 
-  public void setButton(int keyCode, int xBound) {
+  public void setButton() {
     this.button = new JButton("PEDAL");
-    button.setFont(new Font("Arial Narrow", Font.BOLD | Font.ITALIC, 18));
+    this.button.setFont(new Font("Arial Narrow", Font.BOLD | Font.ITALIC, 18));
     this.button.addActionListener(this.pressed);
-    this.button.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(keyCode, 0), "pedal");
+    this.button.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "pedal");
     this.button.getActionMap().put("pedal", this.pressed);
     this.button.setBackground(this.color);
-    this.button.setBounds(xBound, 101, 101, 101);
+    this.button.setBounds(970, 101, 101, 101);
   }
 
   public JButton getButton() {
     return button;
-  }
-
-  public static boolean isPedaled() {
-    return pedaled;
-  }
-
-  public void setPedaled(boolean pedaled) {
-    Pedal.pedaled = pedaled;
   }
 
 }

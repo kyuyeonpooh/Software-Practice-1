@@ -24,13 +24,11 @@ public class Key {
   private Clip clip;
   private AbstractAction pressed;
   private JButton button;
-  private Pedal pedal;
 
   public Key(String melody, int keyCode, int xBound) throws IOException {
     this.setMelody(melody);
     this.setColor();
     this.setPressed();
-    this.setPedal(pedal);
     this.setButton(keyCode, xBound);
   }
 
@@ -39,8 +37,7 @@ public class Key {
   }
 
   public String reviseMelody(String melody) {
-
-    if (Pedal.isPedaled())
+    if (Pedal.getIsPedaled())
       return melody + "_Pedal";
     else
       return melody;
@@ -62,7 +59,7 @@ public class Key {
   }
 
   public void setSoundFile() {
-    this.soundFile = new File("./resource/pianoSound/" + this.reviseMelody(melody) + ".wav");
+    this.soundFile = new File("./resource/pianoSound/" + this.reviseMelody(this.melody) + ".wav");
   }
 
   public File getSoundFile() {
@@ -85,7 +82,7 @@ public class Key {
   public void setClip() throws IOException {
     try {
       this.clip = AudioSystem.getClip();
-      this.clip.open(audioInputStream);
+      this.clip.open(this.audioInputStream);
     } catch (LineUnavailableException e) {
       e.printStackTrace();
     }
@@ -108,7 +105,7 @@ public class Key {
           e.printStackTrace();
         }
       }
-    };
+    };    
   }
 
   public AbstractAction getPressed() {
@@ -131,12 +128,5 @@ public class Key {
     return button;
   }
 
-  public void setPedal(Pedal pedal) {
-    this.pedal = pedal;
-  }
-
-  public Pedal getPedal() {
-    return pedal;
-  }
 
 }
