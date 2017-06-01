@@ -26,17 +26,32 @@ public class Pedal {
     this.setButton();
   }
   
-  public void setIsPedaled(boolean isPedaled) {
-    Pedal.isPedaled = isPedaled;
+  private class ColorEffect extends Thread {    
+    @Override
+    public void run() {
+      if(button.getBackground() == Color.RED){
+        button.setForeground(Color.BLACK);
+        button.setBackground(Color.GREEN);
+        button.setText("ON");
+      }
+      else{
+        button.setForeground(Color.WHITE);
+        button.setBackground(Color.RED);
+        button.setText("OFF");        
+      }
+    }    
   }
   
+  public void setIsPedaled(boolean isPedaled) {
+    Pedal.isPedaled = isPedaled;
+  }  
   
   public static boolean getIsPedaled() {
     return isPedaled;
   }
 
   public void setColor() {
-    this.color = Color.ORANGE;
+    this.color = Color.RED;
   }
 
   public Color getColor() {
@@ -48,6 +63,8 @@ public class Pedal {
     this.pressed = new AbstractAction() {
       @Override
       public void actionPerformed(ActionEvent evt) {
+        Thread effect = new ColorEffect();
+        effect.start();
         if (isPedaled)
           setIsPedaled(false);
         else
@@ -61,10 +78,12 @@ public class Pedal {
   }
 
   public void setButton() {
-    this.button = new JButton("PEDAL");
-    this.button.setFont(new Font("Arial Narrow", Font.BOLD | Font.ITALIC, 18));
+    this.button = new JButton("OFF");
+    this.button.setFont(new Font("Arial Narrow", Font.BOLD | Font.ITALIC, 20));
+    this.button.setVerticalTextPosition(JButton.CENTER);
+    this.button.setForeground(Color.WHITE);
     this.button.addActionListener(this.pressed);
-    this.button.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "pedal");
+    this.button.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, 0), "pedal");
     this.button.getActionMap().put("pedal", this.pressed);
     this.button.setBackground(this.color);
     this.button.setBounds(970, 101, 101, 101);

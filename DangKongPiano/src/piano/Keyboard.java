@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 
-public class Keyboard extends Pedal{
+public class Keyboard {
   
 	private String [] melodies;
 	private int [] keyEvents;
@@ -81,11 +81,10 @@ public class Keyboard extends Pedal{
   }
   
   public void setButtons() {
-    this.buttons = new JButton[melodies.length + 1];
+    this.buttons = new JButton[melodies.length];
     for(int i = 0; i < melodies.length; i++){
       buttons[i] = this.keyboard.get(i).getButton();
     }
-    buttons[melodies.length] = super.getButton();
   }
 	  
   public JButton [] getButtons() {

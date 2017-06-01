@@ -32,6 +32,19 @@ public class Key {
     this.setButton(keyCode, xBound);
   }
 
+  private class ColorEffect extends Thread {    
+    @Override
+    public void run() {
+      button.setBackground(Color.GRAY);
+      try {
+        Thread.sleep(200);
+        button.setBackground(color);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }    
+  }
+  
   public void setMelody(String melody) {
     this.melody = melody;
   }
@@ -100,6 +113,8 @@ public class Key {
         try {
           setAudioInputStream();
           setClip();
+          Thread effect = new ColorEffect();
+          effect.start();
           clip.start();
         } catch (IOException e) {
           e.printStackTrace();
@@ -127,6 +142,5 @@ public class Key {
   public JButton getButton() {
     return button;
   }
-
 
 }
