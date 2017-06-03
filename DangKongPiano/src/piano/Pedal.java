@@ -83,7 +83,7 @@ public class Pedal {
     this.button.setVerticalTextPosition(JButton.CENTER);
     this.button.setForeground(Color.WHITE);
     this.button.addActionListener(this.pressed);
-    this.button.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, 0), "pedal");
+    this.button.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "pedal");
     this.button.getActionMap().put("pedal", this.pressed);
     this.button.setBackground(this.color);
     this.button.setBounds(970, 101, 101, 101);
