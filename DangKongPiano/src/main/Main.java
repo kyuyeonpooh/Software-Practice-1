@@ -3,15 +3,17 @@ package main;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextPane;
 
 import mode.SinglePlay;
+import mode.SongPractice;
 import piano.Piano;
 
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import java.awt.Color;
@@ -31,25 +33,32 @@ public class Main extends JFrame{
 		this.setTitle("DangKongPiano");
 		this.setPressed();
 		this.setButtons();
-		
+
 		setContentPane(mainPanel);
 		setVisible(true);
 	}
 	
 	void setFrame(){
-		mainPanel = new JPanel();
+		ImageIcon background = new ImageIcon("./resource/Image/background4.JPG");
+		mainPanel = new JPanel(){
+			public void paintComponent(Graphics g){
+				g.drawImage(background.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(1000,500);
+		setSize(900,500);
 		mainPanel.setForeground(Color.WHITE);
 		mainPanel.setLayout(null);
 	}
 	
 	public void setTitle(String titlename){
 		title = new JLabel();
-		title.setForeground(Color.BLACK);
-		title.setBackground(Color.WHITE);
-		title.setBounds(300, 32, 255, 55);
-		title.setFont(new Font("BernhardFashion BT", Font.BOLD, 33));
+		title.setForeground(Color.orange);
+		title.setBackground(Color.BLACK);
+		title.setBounds(220, 32, 500, 55);
+		title.setFont(new Font("Bauhaus 93", Font.BOLD, 50));
 		title.setText(titlename);
 		mainPanel.add(title);		
 	}
@@ -59,7 +68,7 @@ public class Main extends JFrame{
 		String[] buttonNames={"SinglePlay", "MultiPlay", "SongPractice"};
 		int i = 0;
 		for(String buttonName: buttonNames){
-			buttons[i]=setButton(buttonName, 54+i*260);
+			buttons[i]=setButton(buttonName, 50+i*260);
 			mainPanel.add(buttons[i]);
 		    buttons[i].setActionCommand(buttonName);
 			buttons[i++].addActionListener(this.pressed);
@@ -69,7 +78,7 @@ public class Main extends JFrame{
 	JButton setButton(String buttonName, int xPos){
 		JButton btn = new JButton(buttonName);
 
-		btn.setBounds(xPos, 146, 250, 146);
+		btn.setBounds(xPos, 270, 250, 146);
 		btn.setForeground(Color.BLACK);
 		btn.setBackground(Color.WHITE);
 		
@@ -88,8 +97,9 @@ public class Main extends JFrame{
 				}
 				else if(command.equals("MultiPlay"))
 					System.out.println("multiplay");
-				else if(command.equals("SongPractice")&&Piano.getNumberOfPiano()==0)
-					System.out.println("song practice");
+				else if(command.equals("SongPractice")&&Piano.getNumberOfPiano()==0){
+					SongPractice SP = new SongPractice();
+				}
 				else
 					System.out.println("??");
 			}
