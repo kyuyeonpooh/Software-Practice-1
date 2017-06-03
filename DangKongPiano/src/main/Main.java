@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import mode.PlayMusic;
 import mode.SinglePlay;
 import mode.SongPractice;
 import piano.Piano;
@@ -11,6 +12,7 @@ import piano.Piano;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
+import java.io.FileNotFoundException;
 
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
@@ -30,7 +32,7 @@ public class Main extends JFrame{
 	
 	public Main(){
 		this.setFrame();
-		this.setTitle("DangKongPiano");
+		this.settingTitle("DangKongPiano");
 		this.setPressed();
 		this.setButtons();
 
@@ -39,7 +41,7 @@ public class Main extends JFrame{
 	}
 	
 	void setFrame(){
-		ImageIcon background = new ImageIcon("./resource/Image/background4.JPG");
+		ImageIcon background = new ImageIcon("./resource/Image/background6.JPG");
 		mainPanel = new JPanel(){
 			public void paintComponent(Graphics g){
 				g.drawImage(background.getImage(), 0, 0, null);
@@ -49,11 +51,12 @@ public class Main extends JFrame{
 		};
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(900,500);
+		setTitle("DangKongPiano");
 		mainPanel.setForeground(Color.WHITE);
 		mainPanel.setLayout(null);
 	}
 	
-	public void setTitle(String titlename){
+	public void settingTitle(String titlename){
 		title = new JLabel();
 		title.setForeground(Color.orange);
 		title.setBackground(Color.BLACK);
@@ -92,13 +95,18 @@ public class Main extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent evt) {
 				String command = evt.getActionCommand();
-				if (command.equals("SinglePlay")&&Piano.getNumberOfPiano()==0){
+				if (command.equals("SinglePlay")&&SinglePlay.getNumberOf()==0){
 					SinglePlay SP = new SinglePlay();
 				}
 				else if(command.equals("MultiPlay"))
 					System.out.println("multiplay");
-				else if(command.equals("SongPractice")&&Piano.getNumberOfPiano()==0){
-					SongPractice SP = new SongPractice();
+				else if(command.equals("SongPractice")&&PlayMusic.getNumberOf()==0){
+					try {
+						SongPractice SP = new SongPractice();
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				else
 					System.out.println("??");
