@@ -58,7 +58,6 @@ public class Pedal {
     return color;
   }
 
-  @SuppressWarnings("serial")
   public void setPressed() {
     this.pressed = new AbstractAction() {
       @Override

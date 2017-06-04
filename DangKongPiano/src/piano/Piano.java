@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import java.awt.Font;
 
 public class Piano extends JPanel implements Serializable {
+
   private Keyboard keyboard;
   private Pedal pedal;
 

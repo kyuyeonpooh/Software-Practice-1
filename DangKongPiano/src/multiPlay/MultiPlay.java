@@ -1,4 +1,4 @@
-package mode;
+package multiPlay;
 
 import java.io.IOException;
 
@@ -8,8 +8,6 @@ public class MultiPlay extends Piano{
 
 	public MultiPlay() throws IOException {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-
 
 }

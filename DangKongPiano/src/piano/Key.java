@@ -32,7 +32,7 @@ public class Key {
     this.setButton(keyCode, xBound);
   }
 
-  private class ColorEffect extends Thread {    
+  private class ColorEffect extends Thread {
     @Override
     public void run() {
       button.setBackground(Color.GRAY);
@@ -42,9 +42,9 @@ public class Key {
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
-    }    
+    }
   }
-  
+
   public void setMelody(String melody) {
     this.melody = melody;
   }
@@ -105,7 +105,6 @@ public class Key {
     return this.clip;
   }
 
-  @SuppressWarnings("serial")
   public void setPressed() {
     this.pressed = new AbstractAction() {
       @Override
@@ -120,7 +119,7 @@ public class Key {
           e.printStackTrace();
         }
       }
-    };    
+    };
   }
 
   public AbstractAction getPressed() {

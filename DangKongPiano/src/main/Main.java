@@ -4,10 +4,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import mode.PlayMusic;
-import mode.SinglePlay;
-import mode.SongPractice;
-import piano.Piano;
+import singlePlay.SinglePlay;
+import songPractice.PlayMusic;
+import songPractice.SongPractice;
 
 import java.awt.Font;
 import java.awt.Graphics;
@@ -20,98 +19,109 @@ import javax.swing.JButton;
 
 import java.awt.Color;
 
-public class Main extends JFrame{	
-	JPanel mainPanel;
-	JButton[] buttons;
-	JLabel title;
-	private AbstractAction pressed;
-	
-	public static void main(String[] args) {
-		Main DangKong = new Main();
-	}	
-	
-	public Main(){
-		this.setFrame();
-		this.settingTitle("DangKongPiano");
-		this.setPressed();
-		this.setButtons();
+public class Main extends JFrame {
 
-		setContentPane(mainPanel);
-		setVisible(true);
-	}
-	
-	void setFrame(){
-		ImageIcon background = new ImageIcon("./resource/Image/background6.JPG");
-		mainPanel = new JPanel(){
-			public void paintComponent(Graphics g){
-				g.drawImage(background.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponent(g);
-			}
-		};
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(900,500);
-		setTitle("DangKongPiano");
-		mainPanel.setForeground(Color.WHITE);
-		mainPanel.setLayout(null);
-	}
-	
-	public void settingTitle(String titlename){
-		title = new JLabel();
-		title.setForeground(Color.orange);
-		title.setBackground(Color.BLACK);
-		title.setBounds(220, 32, 500, 55);
-		title.setFont(new Font("Bauhaus 93", Font.BOLD, 50));
-		title.setText(titlename);
-		mainPanel.add(title);		
-	}
-	
-	void setButtons(){
-		buttons = new JButton[5];
-		String[] buttonNames={"SinglePlay", "MultiPlay", "SongPractice"};
-		int i = 0;
-		for(String buttonName: buttonNames){
-			buttons[i]=setButton(buttonName, 50+i*260);
-			mainPanel.add(buttons[i]);
-		    buttons[i].setActionCommand(buttonName);
-			buttons[i++].addActionListener(this.pressed);
-		}
-	}
+  private JPanel mainPanel;
+  private JLabel titleLabel;
+  private JButton[] buttons;
+  private AbstractAction pressed;
 
-	JButton setButton(String buttonName, int xPos){
-		JButton btn = new JButton(buttonName);
+  public static void main(String[] args) {
+    new Main();
+  }
 
-		btn.setBounds(xPos, 270, 250, 146);
-		btn.setForeground(Color.BLACK);
-		btn.setBackground(Color.WHITE);
-		
-	    btn.setVerticalTextPosition(JButton.CENTER);
-		btn.setFont(new Font("Bauhaus 93", Font.PLAIN, 33));
-		return btn;
-	}
+  public Main() {
+    setTitle("DangKongPiano");
+    setSize(900, 500);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.setPanel();
+    this.setTitleLabel("DangKongPiano");
+    this.setPressed();
+    this.setButtons();
+    setContentPane(mainPanel);
+    setVisible(true);
+  }
 
-	public void setPressed() {
-		this.pressed = new AbstractAction() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-				String command = evt.getActionCommand();
-				if (command.equals("SinglePlay")&&SinglePlay.getNumberOf()==0){
-					SinglePlay SP = new SinglePlay();
-				}
-				else if(command.equals("MultiPlay"))
-					System.out.println("multiplay");
-				else if(command.equals("SongPractice")&&PlayMusic.getNumberOf()==0){
-					try {
-						SongPractice SP = new SongPractice();
-					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				else
-					System.out.println("??");
-			}
-		};
-	}
+  public void setPanel() {
+    ImageIcon background = new ImageIcon("./resource/Image/background.jpg");
+    mainPanel = new JPanel() {
+      public void paintComponent(Graphics g) {
+        g.drawImage(background.getImage(), 0, 0, null);
+        setOpaque(false);
+        super.paintComponent(g);
+      }
+    };
+    mainPanel.setLayout(null);
+  }
+
+  public JPanel getPanel() {
+    return this.mainPanel;
+  }
+
+  public void setTitleLabel(String titleName) {
+    titleLabel = new JLabel();
+    titleLabel.setBounds(220, 32, 500, 55);
+    titleLabel.setFont(new Font("Bauhaus 93", Font.BOLD, 50));
+    titleLabel.setText(titleName);
+    titleLabel.setForeground(Color.ORANGE);
+    titleLabel.setBackground(Color.BLACK);
+    this.mainPanel.add(titleLabel);
+  }
+
+  public JLabel getTitleLabel() {
+    return this.titleLabel;
+  }
+
+  public void setButtons() {
+    buttons = new JButton[5];
+    String[] buttonNames = { "SinglePlay", "MultiPlay", "SongPractice" };
+    int i = 0;
+    for (String buttonName : buttonNames) {
+      ImageIcon buttonImage = new ImageIcon("./resource/Image/" + buttonName + ".png");
+      buttons[i] = setButton(buttonImage, 50 + i * 260);
+      buttons[i].setIcon(buttonImage);
+      buttons[i].setActionCommand(buttonName);
+      buttons[i].addActionListener(this.pressed);
+      mainPanel.add(buttons[i]);
+      i += 1;
+    }
+  }
+
+  private JButton setButton(ImageIcon icon, int xPos) {
+    JButton button = new JButton(icon);
+    button.setBounds(xPos, 270, 250, 146);
+    return button;
+  }
+
+  public JButton[] getButtons() {
+    return this.buttons;
+  }
+
+  public void setPressed() {
+    this.pressed = new AbstractAction() {
+      @Override
+      public void actionPerformed(ActionEvent evt) {
+        String command = evt.getActionCommand();
+        if (command.equals("SinglePlay") && !SinglePlay.getIsOn()) {
+          new SinglePlay();
+        } else if (command.equals("MultiPlay")) {
+          System.out.println("multiplay");
+        } else if (command.equals("SongPractice") && !PlayMusic.getIsOn()) {
+          try {
+            new SongPractice();
+          } catch (FileNotFoundException e) {
+            e.printStackTrace();
+          }
+        } else {
+          /* implement user-defined exception here */
+          System.out.println("Error");
+        }
+      }
+    };
+  }
+
+  public AbstractAction getPressed() {
+    return this.pressed;
+  }
 
 }
