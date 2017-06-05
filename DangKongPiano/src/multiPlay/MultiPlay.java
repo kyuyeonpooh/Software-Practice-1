@@ -25,7 +25,7 @@ public class MultiPlay extends JFrame {
           Piano piano = new Piano();
           piano.setLayout(null);
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-          setTitle("Single Play");
+          setTitle("Multi Play");
           setSize(1120, 380);
           getContentPane().add(piano);
           setVisible(true);
