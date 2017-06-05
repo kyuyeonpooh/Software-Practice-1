@@ -1,13 +1,10 @@
 package multiPlay;
 
-import java.io.IOException;
-
 import piano.Piano;
 
-public class MultiPlay extends Piano{
+public class MultiPlay {
 
-	public MultiPlay() throws IOException {
-		super();
+	public MultiPlay() {
 	}
 
 }
