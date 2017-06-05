@@ -2,8 +2,10 @@ package piano;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.Socket;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -14,6 +16,8 @@ import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
+
+import multiPlay.MultiPlay;
 
 public class Key {
 
@@ -112,6 +116,12 @@ public class Key {
         try {
           setAudioInputStream();
           setClip();
+          if(MultiPlay.getIsOn()){
+            Socket socket = new Socket("localhost", 1225);
+            DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+            output.writeUTF(melody);
+            socket.close();
+          }
           Thread effect = new ColorEffect();
           effect.start();
           clip.start();

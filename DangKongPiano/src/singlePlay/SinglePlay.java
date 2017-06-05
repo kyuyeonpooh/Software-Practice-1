@@ -11,6 +11,8 @@ import piano.Piano;
 public class SinglePlay extends JFrame {
 
   private static boolean isOn = false;
+  
+  private Piano piano;
 
   public SinglePlay() {
     this.addWindowListener(new WindowAdapter() {
@@ -22,11 +24,11 @@ public class SinglePlay extends JFrame {
       public void run() {
         try {
           SinglePlay.setIsOn(true);
-          Piano piano = new Piano();
+          piano = new Piano();
           piano.setLayout(null);
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setTitle("Single Play");
-          setSize(1120, 380);
+          setSize(1120, 400);
           getContentPane().add(piano);
           setVisible(true);
         } catch (Exception e) {

@@ -105,7 +105,7 @@ public class Main extends JFrame {
         String command = evt.getActionCommand();
         if (command.equals("SinglePlay") && !SinglePlay.getIsOn()) {
           new SinglePlay();
-        } else if (command.equals("MultiPlay")) {
+        } else if (command.equals("MultiPlay") && !MultiPlay.getIsOn()) {
           new MultiPlay();
         } else if (command.equals("SongPractice") && !PlayMusic.getIsOn()) {
             new SongPractice();
