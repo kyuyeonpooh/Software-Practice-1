@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
 import piano.Piano;
-import piano.Key.ColorEffect;
 
 import java.awt.Color;
 import java.awt.EventQueue;
