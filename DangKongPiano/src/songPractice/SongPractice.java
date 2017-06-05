@@ -29,9 +29,8 @@ public class SongPractice extends JFrame {
   private PlayMusic playMusic;
   private JButton start;
 
-  public SongPractice() throws FileNotFoundException {
+  public SongPractice() {
     this.chooseSong = new ChooseSong();
-    this.playMusic = new PlayMusic(chooseSong.getSelectedSong());
 
     getContentPane().add(this.chooseSong);
     setButton();
@@ -47,17 +46,23 @@ public class SongPractice extends JFrame {
     });
   }
 
-  void setButton() {
+  void setButton(){
     start = new JButton("START!");
     start.setForeground(Color.BLACK);
     start.setBackground(Color.WHITE);
     start.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
-    start.addActionListener(new ActionListener() {
+    start.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent e) {
-        getContentPane().removeAll();
-        getContentPane().add(playMusic);
-        revalidate();
-        repaint();
+        if(chooseSong.getSelectedSong()==null){
+        	new SelectedNullException(chooseSong.getTextLabel());
+        }
+        else{
+          playMusic = new PlayMusic(chooseSong.getSelectedSong());	
+    	  getContentPane().removeAll();
+          getContentPane().add(playMusic);
+          revalidate();
+          repaint();
+        }
       }
     });
 

@@ -58,4 +58,8 @@ public class ChooseSong extends JPanel implements ListSelectionListener {
     return selectedSong;
   }
   
+  public JLabel getTextLabel(){
+	  return textLabel;
+  }
+  
 }

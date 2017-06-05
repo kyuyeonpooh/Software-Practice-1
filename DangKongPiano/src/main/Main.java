@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import multiPlay.MultiPlay;
 import singlePlay.SinglePlay;
 import songPractice.PlayMusic;
 import songPractice.SongPractice;
@@ -105,13 +106,9 @@ public class Main extends JFrame {
         if (command.equals("SinglePlay") && !SinglePlay.getIsOn()) {
           new SinglePlay();
         } else if (command.equals("MultiPlay")) {
-          System.out.println("multiplay");
+          new MultiPlay();
         } else if (command.equals("SongPractice") && !PlayMusic.getIsOn()) {
-          try {
             new SongPractice();
-          } catch (FileNotFoundException e) {
-            e.printStackTrace();
-          }
         } else {
           /* implement user-defined exception here */
           System.out.println("Error");

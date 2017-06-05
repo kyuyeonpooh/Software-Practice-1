@@ -19,27 +19,34 @@ public class PlayMusic extends JPanel {
   private String song;
   private BufferedReader br;
 
-  public PlayMusic(String song) throws FileNotFoundException {
+  public PlayMusic(String song){
     setLayout(null);
     setSize(1100, 550);
     setPiano();
     setSong(song);
-    // getSong();
+    getSong();
   }
 
   void readLine() throws IOException {
     String data = br.readLine();
-
+    
   }
 
-  void getSong() throws FileNotFoundException {
-    InputStream fis = new FileInputStream("./resource/music/" + this.song + ".csv");
-    Reader isr = new InputStreamReader(fis);
-    br = new BufferedReader(isr);
+  void getSong(){
+    InputStream fis;
+	try {
+		fis = new FileInputStream("./resource/music/" + this.song + ".csv");
+	    Reader isr = new InputStreamReader(fis);
+	    br = new BufferedReader(isr);
+	} catch (FileNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
   }
 
   void setSong(String song) {
-    this.song = song;
+	this.song = song;
+    System.out.println(this.song+" is selected ");
   }
 
   void setPiano() {
