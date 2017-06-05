@@ -15,6 +15,8 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 
+import multiPlay.MultiPlay;
+
 public class Key {
 
   private String melody;
@@ -112,6 +114,9 @@ public class Key {
         try {
           setAudioInputStream();
           setClip();
+          if(MultiPlay.getIsOn()){
+            
+          }
           Thread effect = new ColorEffect();
           effect.start();
           clip.start();

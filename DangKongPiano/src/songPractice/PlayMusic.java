@@ -55,15 +55,14 @@ public class PlayMusic extends JPanel {
         try {
           PlayMusic.setIsOn(true);
           piano = new Piano();
-          piano.setBounds(0, 125, 1100, 351);
-          add(piano);
           piano.setLayout(null);
+          piano.setBounds(0, 125, 1100, 351);
+          add(piano);          
         } catch (Exception e) {
           e.printStackTrace();
         }
       }
     });
-
   }
 
   public static boolean getIsOn() {
