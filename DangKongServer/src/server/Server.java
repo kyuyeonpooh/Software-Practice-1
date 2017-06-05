@@ -1,5 +1,6 @@
 package server;
 
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -20,18 +21,10 @@ public class Server {
     while (true) {
       try {
         Socket socket = server.accept();
-        Thread thread = new CommThread(socket);
-        thread.start();
-        if(!player1.isAlive()){
-          player1 = thread;
-        }
-        else if(!player2.isAlive()){
-          player2 = thread;
-        }
-        else{
-          /* implement user-defined exception here */
-          System.out.println("Error");
-        }
+        System.out.println("New connection");
+        DataInputStream input = new DataInputStream(socket.getInputStream());
+        String melody = input.readUTF();
+        System.out.println(melody);
       } catch (IOException e) {
         e.printStackTrace();
       }

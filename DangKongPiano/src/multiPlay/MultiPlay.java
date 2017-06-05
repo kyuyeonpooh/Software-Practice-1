@@ -3,9 +3,16 @@ package multiPlay;
 import java.awt.EventQueue;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.DataInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 
 import piano.Piano;
@@ -18,6 +25,8 @@ public class MultiPlay extends JFrame {
 
   public MultiPlay() {
     setPiano();
+    //FetchMelody fetchMelody = new FetchMelody();
+    //fetchMelody.start();
     setTitle("Multi Play");
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setLayout(null);
@@ -30,15 +39,36 @@ public class MultiPlay extends JFrame {
     });
   }
 
-  private class Client extends Thread {
+  private class FetchMelody extends Thread {
+    
     @Override
     public void run() {
+      while (true) {
+        String melody = null;
+        try {
+          Socket socket = new Socket("localhost", 1225);
+          DataInputStream input = new DataInputStream(socket.getInputStream());
+          melody = input.readUTF();
+          playMelody(melody);
+          // socket.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+
+    private void playMelody(String melody) {
+      File soundFile = new File("./resource/pianosound/" + melody + ".wav");     
       try {
-        Socket socket = new Socket("localhost", 1225);
-      } catch (IOException e) {
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioInputStream);
+        clip.start();
+      } catch (Exception e) {
         e.printStackTrace();
       }
     }
+    
   }
 
   public void setPiano() {
