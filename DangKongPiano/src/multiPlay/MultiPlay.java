@@ -1,26 +1,16 @@
 package multiPlay;
 
-<<<<<<< HEAD
-=======
 import java.awt.EventQueue;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
->>>>>>> branch 'master' of https://github.com/poopbear/DangKong
 import piano.Piano;
 
-<<<<<<< HEAD
-public class MultiPlay {
-=======
-public class MultiPlay extends JFrame {
->>>>>>> branch 'master' of https://github.com/poopbear/DangKong
 
-<<<<<<< HEAD
-	public MultiPlay() {
-	}
-=======
+public class MultiPlay extends JFrame {
+
   private static boolean isOn = false;
 
   public MultiPlay() {
@@ -54,6 +44,5 @@ public class MultiPlay extends JFrame {
   public static void setIsOn(boolean isOn) {
     MultiPlay.isOn = isOn;
   }
->>>>>>> branch 'master' of https://github.com/poopbear/DangKong
 
 }
