@@ -34,6 +34,7 @@ public class MultiPlay extends JFrame {
   private HashMap<String, Integer> melodyHash;
 
   public MultiPlay() {
+    MultiPlay.setIsOn(true);
     setQueue();
     setPiano();
     setMelodyHash();
@@ -42,9 +43,10 @@ public class MultiPlay extends JFrame {
     sender.start();
     receiver.start();
     setTitle("Multi Play");
-    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     setLayout(null);
     setSize(1120, 500);
+    getContentPane().setBackground(Color.CYAN);
     setVisible(true);
     addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
@@ -92,25 +94,6 @@ public class MultiPlay extends JFrame {
     }
   }
 
-  private void playMelody(String melody) {
-    File soundFile;
-    if (Pedal.getIsPedaled()) {
-      soundFile = new File("./resource/pianoSound/" + melody + "_Pedal.wav");
-    } else {
-      soundFile = new File("./resource/pianoSound/" + melody + ".wav");
-    }
-    try {
-      AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-      Clip clip = AudioSystem.getClip();
-      clip.open(audioInputStream);
-      MultiColorEffect multiEffect = new MultiColorEffect(melody);
-      multiEffect.start();
-      clip.start();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
   private class MultiColorEffect extends Thread {
 
     private String melody;
@@ -136,6 +119,25 @@ public class MultiPlay extends JFrame {
 
   }
 
+  private void playMelody(String melody) {
+    File soundFile;
+    if (Pedal.getIsPedaled()) {
+      soundFile = new File("./resource/pianoSound/" + melody + "_Pedal.wav");
+    } else {
+      soundFile = new File("./resource/pianoSound/" + melody + ".wav");
+    }
+    try {
+      AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+      Clip clip = AudioSystem.getClip();
+      clip.open(audioInputStream);
+      MultiColorEffect multiEffect = new MultiColorEffect(melody);
+      multiEffect.start();
+      clip.start();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
   public void setMelodyHash() {
     melodyHash = new HashMap<String, Integer>();
     String[] melodies;
@@ -151,12 +153,12 @@ public class MultiPlay extends JFrame {
   }
 
   public void setPiano() {
-    MultiPlay.setIsOn(true);
     try {
       piano = new Piano();
     } catch (IOException e) {
       e.printStackTrace();
     }
+    piano.setBackground(Color.CYAN);
     piano.setLayout(null);
     piano.setBounds(0, 125, 1100, 351);
     add(piano);
@@ -166,20 +168,20 @@ public class MultiPlay extends JFrame {
     return this.piano;
   }
 
-  public static boolean getIsOn() {
-    return isOn;
-  }
-
   public static void setIsOn(boolean isOn) {
     MultiPlay.isOn = isOn;
   }
 
-  public static BlockingQueue<String> getQueue() {
-    return queue;
+  public static boolean getIsOn() {
+    return isOn;
   }
 
   public static void setQueue() {
     MultiPlay.queue = new ArrayBlockingQueue<String>(10);
+  }
+
+  public static BlockingQueue<String> getQueue() {
+    return queue;
   }
 
 }

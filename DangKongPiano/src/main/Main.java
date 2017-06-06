@@ -33,8 +33,9 @@ public class Main extends JFrame {
 
   public Main() {
     setTitle("DangKongPiano");
-    setSize(900, 500);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setLayout(null);
+    setSize(900, 500);
     this.setPanel();
     this.setTitleLabel("DangKongPiano");
     this.setPressed();
@@ -108,10 +109,12 @@ public class Main extends JFrame {
         } else if (command.equals("MultiPlay") && !MultiPlay.getIsOn()) {
           new MultiPlay();
         } else if (command.equals("SongPractice") && !PlayMusic.getIsOn()) {
-            new SongPractice();
+          new SongPractice();
         } else {
-          /* implement user-defined exception here */
-          System.out.println("Error");
+          try {
+            throw new AlreadyOnException();
+          } catch (AlreadyOnException e) {
+          }
         }
       }
     };
