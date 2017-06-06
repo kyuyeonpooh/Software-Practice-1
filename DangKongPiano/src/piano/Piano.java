@@ -1,12 +1,10 @@
 package piano;
 
+import java.awt.Font;
 import java.io.IOException;
-import java.io.Serializable;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import java.awt.Color;
-import java.awt.Font;
 
 public class Piano extends JPanel {
 
