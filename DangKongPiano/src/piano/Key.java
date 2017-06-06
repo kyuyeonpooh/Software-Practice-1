@@ -18,6 +18,7 @@ import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 
 import multiPlay.MultiPlay;
+import songPractice.PlayMusic;
 
 public class Key {
 
@@ -118,6 +119,9 @@ public class Key {
           setClip();
           if(MultiPlay.getIsOn()){
             MultiPlay.getQueue().put(melody);
+          }
+          else if(PlayMusic.isPlayOn()){
+            PlayMusic.q.put(melody);
           }
           Thread effect = new ColorEffect();
           effect.start();
