@@ -25,6 +25,7 @@ public class MultiPlay extends JFrame {
   private static BlockingQueue<String> queue;
 
   private Piano piano;
+  Socket socket;
   ClientSender sender;
   ClientReceiver receiver;
 
@@ -32,9 +33,9 @@ public class MultiPlay extends JFrame {
     setQueue();
     setPiano();
     sender = new ClientSender();
-    // receiver = new ClientReceiver();
+    receiver = new ClientReceiver();
     sender.start();
-    // receiver.start();
+    receiver.start();
     setTitle("Multi Play");
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setLayout(null);
@@ -52,7 +53,7 @@ public class MultiPlay extends JFrame {
     @Override
     public void run() {
       try {
-        Socket socket = new Socket("localhost", 5000);
+        socket = new Socket("localhost", 5000);
         DataInputStream playerNum = new DataInputStream(socket.getInputStream());
         System.out.println(playerNum.readInt());
         while (true) {
@@ -69,37 +70,37 @@ public class MultiPlay extends JFrame {
 
     @Override
     public void run() {
-      while (true) {
-        String melody = null;
-        try {
-          Socket socket = new Socket("localhost", 1225);
-          DataInputStream input = new DataInputStream(socket.getInputStream());
-          melody = input.readUTF();
-          playMelody(melody);
-          // socket.close();
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-      }
-    }
-
-    private void playMelody(String melody) {
-      File soundFile;
-      if (Pedal.getIsPedaled()) {
-        soundFile = new File("./resource/pianosound/" + melody + "_Pedal.wav");
-      } else {
-        soundFile = new File("./resource/pianosound/" + melody + ".wav");
-      }
       try {
-        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-        Clip clip = AudioSystem.getClip();
-        clip.open(audioInputStream);
-        clip.start();
-      } catch (Exception e) {
+        Thread.sleep(2000);
+        String melody = null;
+        while (true) {
+          DataInputStream receive = new DataInputStream(socket.getInputStream());
+          melody = receive.readUTF();
+          System.out.println("Received" + melody);
+          if(melody != null)
+            playMelody(melody);
+        }
+      } catch (IOException | InterruptedException e) {
         e.printStackTrace();
       }
     }
+  }
 
+  private void playMelody(String melody) {
+    File soundFile;
+    if (Pedal.getIsPedaled()) {
+      soundFile = new File("./resource/pianoSound/" + melody + "_Pedal.wav");
+    } else {
+      soundFile = new File("./resource/pianoSound/" + melody + ".wav");
+    }
+    try {
+      AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+      Clip clip = AudioSystem.getClip();
+      clip.open(audioInputStream);
+      clip.start();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   public void setPiano() {
