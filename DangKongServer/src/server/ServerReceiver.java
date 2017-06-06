@@ -20,7 +20,8 @@ public class ServerReceiver extends Thread {
         String melody = input.readUTF();
         System.out.println(melody);
       } catch (IOException e) {
-        e.printStackTrace();
+        Server.player1.stop();
+        Server.player2.stop();
       }
     }
   }

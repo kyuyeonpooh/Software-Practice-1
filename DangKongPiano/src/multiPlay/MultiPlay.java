@@ -52,7 +52,7 @@ public class MultiPlay extends JFrame {
     @Override
     public void run() {
       try {
-        Socket socket = new Socket("localhost", 1225);
+        Socket socket = new Socket("localhost", 5000);
         DataInputStream playerNum = new DataInputStream(socket.getInputStream());
         System.out.println(playerNum.readInt());
         while (true) {
@@ -72,7 +72,7 @@ public class MultiPlay extends JFrame {
       while (true) {
         String melody = null;
         try {
-          Socket socket = new Socket("localhost", 1225);
+          Socket socket = new Socket("localhost", 5000);
           DataInputStream input = new DataInputStream(socket.getInputStream());
           melody = input.readUTF();
           playMelody(melody);

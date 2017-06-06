@@ -7,12 +7,13 @@ import java.net.Socket;
 
 public class Server {
   
-  private static Thread player1;
-  private static Thread player2;
+  public static Thread player1;
+  public static Thread player2;
+  public static ServerSocket server;
 
   public static void main(String[] args) throws IOException {
-    ServerSocket server = null;
-    server = new ServerSocket(1225);
+    
+    server = new ServerSocket(5000);
     System.out.println("Server is ready.");
     Socket socket1 = server.accept();
     DataOutputStream output1 = new DataOutputStream(socket1.getOutputStream());
