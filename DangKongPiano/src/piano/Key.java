@@ -123,7 +123,7 @@ public class Key {
             MultiPlay.getQueue().put(melody);
           }
           else if(PlayMusic.getIsOn()){
-            PlayMusic.q.put(melody);
+            PlayMusic.queue.put(melody);
           }
           Thread effect = new ColorEffect();
           effect.start();

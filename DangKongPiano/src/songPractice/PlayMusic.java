@@ -20,7 +20,7 @@ public class PlayMusic extends JPanel {
 	private Piano piano;
 	private String song;
 	private BufferedReader reader;
-	public static BlockingQueue<String> q;
+	public static BlockingQueue<String> queue;
 	private static boolean isOn = false;
 	private String[] tokens;
 	JLabel[] text;
@@ -73,7 +73,7 @@ public class PlayMusic extends JPanel {
 	}
 
 	void setBlockingQueue() {
-		q = new ArrayBlockingQueue<String>(50);
+		queue = new ArrayBlockingQueue<String>(50);
 	}
 
 	public static void setIsOn(boolean isOn) {
@@ -132,7 +132,7 @@ class BlockingQ extends Thread {
 				else {
 					int correctCount = 0;
 					while (correctCount != length) {
-						String melody = playMusic.q.take();
+						String melody = playMusic.queue.take();
 						if (melody.equals(tokens[correctCount])) {
 							playMusic.text[correctCount].setForeground(Color.ORANGE);
 							correctCount++;
@@ -168,7 +168,7 @@ class BlockingQ extends Thread {
 		String txt = melody;
 		label = new JLabel(txt);
 		label.setFont(new Font("Times New Roman", Font.BOLD, 50));
-		label.setBounds(xpos * 100 + 100, 25, 100, 60);
+		label.setBounds(xpos * 100 + 50, 35, 100, 60);
 		playMusic.add(label);
 		return label;
 	}
@@ -184,15 +184,15 @@ class BlockingQ extends Thread {
 		playMusic.text[0].setText("E");
 		playMusic.text[0].setForeground(Color.RED);
 		playMusic.text[0].setFont(new Font("Comic Sans MS", Font.BOLD, 60));
-		playMusic.text[0].setBounds(200, 25, 100, 60);
+		playMusic.text[0].setBounds(350, 25, 100, 60);
 		playMusic.text[1].setText("N");
 		playMusic.text[1].setForeground(Color.BLUE);
 		playMusic.text[1].setFont(new Font("Comic Sans MS", Font.BOLD, 60));
-		playMusic.text[1].setBounds(350, 25, 100, 60);
+		playMusic.text[1].setBounds(500, 25, 100, 60);
 		playMusic.text[2].setText("D");
 		playMusic.text[2].setForeground(Color.BLACK);
 		playMusic.text[2].setFont(new Font("Comic Sans MS", Font.BOLD, 60));
-		playMusic.text[2].setBounds(500, 25, 100, 60);
+		playMusic.text[2].setBounds(650, 25, 100, 60);
 	}
 
 	public void setTokens(String[] tokens) {
