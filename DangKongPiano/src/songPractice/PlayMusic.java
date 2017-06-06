@@ -20,90 +20,78 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 public class PlayMusic extends JPanel {
 
   private static boolean isOn = false;
 
-  private AbstractAction pressed;
   private Piano piano;
   private String song;
   private BufferedReader br;
-  JLabel[] text;
+  public static BlockingQueue<String> q;
+  private static boolean playOn=false;
+  String[] tokens;
+  static JLabel[] text;
 
   public PlayMusic(String song){
     setLayout(null);
     setSize(1100, 550);
     setPiano();
     setSong(song);
+    setBlockingQueue();
     getSong();
     readLines();
   }
   
   void readLines(){
-	try {
-		int len = readLine();
-		listen(len);
-	} catch (IOException e) {
-		e.printStackTrace();
-	}
+		int len = 0;
+		while(true){
+			try {
+				len = readLine();
+			} catch (IOException e) {
+				
+			}
+			try {
+				if(len==0)	break;
+				listen(len);
+			} catch (InterruptedException e) {
+				
+			}
+		}
+
   }
-  /*
-  void listen(int len){
-	setPressed();
-	setButton(text[0]);
+ 
+  void listen(int len) throws InterruptedException{
+	  BlockingQ q = new BlockingQ(this.q, len, text, tokens);
+	  q.start();
+  }
+  
+  void setBlockingQueue(){
+	  q = new ArrayBlockingQueue<String>(20);
   }
 
-  public void setPressed() {
-	    this.pressed = new AbstractAction() {
-	      @Override
-	      public void actionPerformed(ActionEvent evt) {
-	          Thread effect = new ColorEffect();
-	          effect.start();
-
-	      }
-	    };
-  }
-  
-  public void setButton(JLabel lbl) {
-	    this.button = new JButton();
-	    this.button.addActionListener(this.pressed);
-	    this.button.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(keyCode, 0), this.melody);
-	    this.button.getActionMap().put(this.melody, this.pressed);
-	    this.button.setBackground(this.color);
-	    this.button.setBounds(xBound, 12, 60, 90);
-}
-  
-  private class ColorEffect extends Thread {
-	    @Override
-	    public void run() {
-	      button.setBackground(Color.GRAY);
-	      try {
-	        Thread.sleep(200);
-	        button.setBackground(color);
-	      } catch (InterruptedException e) {
-	        e.printStackTrace();
-	      }
-	    }
-  }
-  */
-  
   int readLine() throws IOException {
     String data = br.readLine();
-    int len = data.length();
+    if(data==null)	return 0;
+    tokens = data.split(" ");     
+    int len = tokens.length;
+    
     text = new JLabel[len];
     for(int i = 0; i<len ; i++){
-    	setLetter(text[i], i, data.charAt(i));
+    	text[i]=setLetter(text[i], i, tokens[i]);
     }
     return len;
   }
-
-  void setLetter(JLabel lbl, int xpos, char letter){
-	String txt=Character.toString(letter);
+  
+  JLabel setLetter(JLabel lbl, int xpos, String melody){
+	String txt=melody;
 	lbl = new JLabel(txt);
 	lbl.setFont(new Font("Comic Sans MS", Font.BOLD, 60));
-	lbl.setBounds(xpos*100+100, 25, 60, 60);
+	lbl.setBounds(xpos*200+100, 25, 200, 60);
 	add(lbl);
+	return lbl;
   }
   
   void getSong(){
@@ -126,7 +114,7 @@ public class PlayMusic extends JPanel {
     EventQueue.invokeLater(new Runnable() {
       public void run() {
         try {
-          PlayMusic.setIsOn(true);
+          PlayMusic.setPlayOn(true);
           piano = new Piano();
           piano.setLayout(null);
           piano.setBounds(0, 125, 1100, 351);
@@ -146,4 +134,47 @@ public class PlayMusic extends JPanel {
     PlayMusic.isOn = isOn;
   }
 
+public static boolean isPlayOn() {
+	return playOn;
 }
+
+public static void setPlayOn(boolean playOn) {
+	PlayMusic.playOn = playOn;
+}
+
+}
+
+
+class BlockingQ extends Thread{
+	public BlockingQueue<String> q=null;
+	int len;
+	JLabel[] text;
+	String[] tokens;
+	
+	public BlockingQ(BlockingQueue<String> q, int len, JLabel[] text, String[] tokens) {
+		this.q=q;
+		this.len=len;
+		this.text=text;
+		this.tokens=tokens;
+	}
+
+	public void run(){
+		try {
+			int correctCnt=0;
+			while(correctCnt!=len){
+				String s = q.take();
+				if(s.equals(tokens[correctCnt])){
+					System.out.println("Consumed: "+s);
+					text[correctCnt].setForeground(Color.ORANGE);
+					correctCnt++;
+				}
+				else{
+					System.out.println("mis match: "+s+"/"+tokens[correctCnt]);
+				}
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+}
+
