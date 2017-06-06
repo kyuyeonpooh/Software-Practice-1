@@ -27,6 +27,7 @@ public class Pedal {
   }
   
   private class ColorEffect extends Thread {    
+    
     @Override
     public void run() {
       if(button.getBackground() == Color.RED){
@@ -39,7 +40,8 @@ public class Pedal {
         button.setBackground(Color.RED);
         button.setText("OFF");        
       }
-    }    
+    }
+    
   }
   
   public void setIsPedaled(boolean isPedaled) {

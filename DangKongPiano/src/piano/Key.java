@@ -38,6 +38,7 @@ public class Key {
   }
 
   private class ColorEffect extends Thread {
+    
     @Override
     public void run() {
       button.setBackground(Color.GRAY);
@@ -48,6 +49,7 @@ public class Key {
         e.printStackTrace();
       }
     }
+    
   }
 
   public void setMelody(String melody) {
