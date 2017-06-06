@@ -30,7 +30,7 @@ public class Piano extends JPanel implements Serializable {
       add(keyboard.getButtons()[i]);
   }
 
-  public Keyboard getKeyboards() {
+  public Keyboard getKeyboard() {
     return this.keyboard;
   }
 

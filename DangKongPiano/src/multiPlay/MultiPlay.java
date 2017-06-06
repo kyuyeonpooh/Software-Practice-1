@@ -1,6 +1,6 @@
 package multiPlay;
 
-import java.awt.EventQueue;
+import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.DataInputStream;
@@ -8,14 +8,17 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import piano.Keyboard;
 import piano.Pedal;
 import piano.Piano;
 
@@ -25,13 +28,15 @@ public class MultiPlay extends JFrame {
   private static BlockingQueue<String> queue;
 
   private Piano piano;
-  Socket socket;
-  ClientSender sender;
-  ClientReceiver receiver;
+  private Socket socket;
+  private ClientSender sender;
+  private ClientReceiver receiver;
+  private HashMap<String, Integer> melodyHash;
 
   public MultiPlay() {
     setQueue();
     setPiano();
+    setMelodyHash();
     sender = new ClientSender();
     receiver = new ClientReceiver();
     sender.start();
@@ -72,13 +77,13 @@ public class MultiPlay extends JFrame {
     public void run() {
       try {
         Thread.sleep(2000);
-        String melody = null;
+        String receivedMelody = null;
         while (true) {
           DataInputStream receive = new DataInputStream(socket.getInputStream());
-          melody = receive.readUTF();
-          System.out.println("Received" + melody);
-          if(melody != null)
-            playMelody(melody);
+          receivedMelody = receive.readUTF();
+          System.out.println("Received" + receivedMelody);
+          if (receivedMelody != null)
+            playMelody(receivedMelody);
         }
       } catch (IOException | InterruptedException e) {
         e.printStackTrace();
@@ -97,26 +102,63 @@ public class MultiPlay extends JFrame {
       AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
       Clip clip = AudioSystem.getClip();
       clip.open(audioInputStream);
+      MultiColorEffect multiEffect = new MultiColorEffect(melody);
+      multiEffect.start();
       clip.start();
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
-  public void setPiano() {
-    EventQueue.invokeLater(new Runnable() {
-      public void run() {
-        try {
-          MultiPlay.setIsOn(true);
-          piano = new Piano();
-          piano.setLayout(null);
-          piano.setBounds(0, 125, 1100, 351);
-          add(piano);
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
+  private class MultiColorEffect extends Thread {
+
+    private String melody;
+
+    private MultiColorEffect(String melody) {
+      this.melody = melody;
+    }
+
+    @Override
+    public void run() {
+      Keyboard keyboard = piano.getKeyboard();
+      JButton[] buttons = keyboard.getButtons();
+      int index = melodyHash.get(melody);
+      buttons[index].setBackground(Color.RED);
+      try {
+        Thread.sleep(200);
+        Color color = keyboard.getKeyboard().get(index).getColor();
+        buttons[index].setBackground(color);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
       }
-    });
+    }
+
+  }
+
+  public void setMelodyHash() {
+    melodyHash = new HashMap<String, Integer> ();
+    String[] melodies;
+    melodies = piano.getKeyboard().getMelodies();
+    int index = 0;
+    for (String melody : melodies) {
+      melodyHash.put(melody, index++);
+    }
+  }
+
+  public HashMap<String, Integer> getMelodyHash() {
+    return this.melodyHash;
+  }
+
+  public void setPiano() {
+    MultiPlay.setIsOn(true);
+    try {
+      piano = new Piano();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    piano.setLayout(null);
+    piano.setBounds(0, 125, 1100, 351);
+    add(piano);
   }
 
   public Piano getPiano() {
