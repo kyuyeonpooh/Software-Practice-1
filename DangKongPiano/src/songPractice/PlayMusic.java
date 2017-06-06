@@ -29,6 +29,7 @@ public class PlayMusic extends JPanel {
   private Piano piano;
   private String song;
   private BufferedReader br;
+  JLabel[] text;
 
   public PlayMusic(String song){
     setLayout(null);
@@ -47,36 +48,30 @@ public class PlayMusic extends JPanel {
 		e.printStackTrace();
 	}
   }
-  
+  /*
   void listen(int len){
-//	setPressed();
-//	setButton(keyCode, xBound);
+	setPressed();
+	setButton(text[0]);
   }
-/*
+
   public void setPressed() {
 	    this.pressed = new AbstractAction() {
 	      @Override
 	      public void actionPerformed(ActionEvent evt) {
-	        try {
 	          Thread effect = new ColorEffect();
 	          effect.start();
-	        } catch (IOException e) {
-	          e.printStackTrace();
-	        }
+
 	      }
 	    };
   }
   
-  public void setButton(int keyCode, int xBound) {
+  public void setButton(JLabel lbl) {
 	    this.button = new JButton();
 	    this.button.addActionListener(this.pressed);
 	    this.button.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(keyCode, 0), this.melody);
 	    this.button.getActionMap().put(this.melody, this.pressed);
 	    this.button.setBackground(this.color);
-	    if (this.color == Color.BLACK)
-	      this.button.setBounds(xBound, 12, 60, 90);
-	    else
-	      this.button.setBounds(xBound, 101, 60, 200);
+	    this.button.setBounds(xBound, 12, 60, 90);
 }
   
   private class ColorEffect extends Thread {
@@ -90,12 +85,13 @@ public class PlayMusic extends JPanel {
 	        e.printStackTrace();
 	      }
 	    }
-	  }
+  }
   */
+  
   int readLine() throws IOException {
     String data = br.readLine();
     int len = data.length();
-    JLabel[] text = new JLabel[len];
+    text = new JLabel[len];
     for(int i = 0; i<len ; i++){
     	setLetter(text[i], i, data.charAt(i));
     }

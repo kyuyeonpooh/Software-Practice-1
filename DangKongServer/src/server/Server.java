@@ -2,8 +2,10 @@ package server;
 
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class Server {
 
@@ -18,6 +20,12 @@ public class Server {
       e.printStackTrace();
     }
     System.out.println("Server is ready.");
+    try {
+		System.out.println(InetAddress.getLocalHost().getHostAddress());
+	} catch (UnknownHostException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
     while (true) {
       try {
         Socket socket = server.accept();

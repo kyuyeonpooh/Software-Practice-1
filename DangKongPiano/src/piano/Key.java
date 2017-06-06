@@ -117,7 +117,7 @@ public class Key {
           setAudioInputStream();
           setClip();
           if(MultiPlay.getIsOn()){
-            Socket socket = new Socket("localhost", 1225);
+            Socket socket = new Socket("110.15.209.229", 1225);
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
             output.writeUTF(melody);
             socket.close();
