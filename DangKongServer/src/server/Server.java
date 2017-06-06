@@ -17,6 +17,8 @@ public class Server {
     setServer();
     setSocket1();
     setSocket2();
+    setPlayer1();
+    setPlayer2();
   }
 
   public static void setServer() throws IOException {
