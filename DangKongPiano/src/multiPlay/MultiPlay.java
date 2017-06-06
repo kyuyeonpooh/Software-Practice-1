@@ -66,6 +66,7 @@ public class MultiPlay extends JFrame {
           output.writeUTF(queue.take());
         }
       } catch (Exception e) {
+        e.printStackTrace();
       }
     }
 
@@ -77,7 +78,7 @@ public class MultiPlay extends JFrame {
     public void run() {
       try {
         Thread.sleep(2000);
-        String receivedMelody = null;
+        String receivedMelody;
         while (true) {
           DataInputStream receive = new DataInputStream(socket.getInputStream());
           receivedMelody = receive.readUTF();
@@ -136,7 +137,7 @@ public class MultiPlay extends JFrame {
   }
 
   public void setMelodyHash() {
-    melodyHash = new HashMap<String, Integer> ();
+    melodyHash = new HashMap<String, Integer>();
     String[] melodies;
     melodies = piano.getKeyboard().getMelodies();
     int index = 0;
