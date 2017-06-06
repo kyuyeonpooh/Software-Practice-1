@@ -12,7 +12,6 @@ public class Server {
   public static ServerSocket server;
 
   public static void main(String[] args) throws IOException {
-    
     server = new ServerSocket(5000);
     System.out.println("Server is ready.");
     Socket socket1 = server.accept();
