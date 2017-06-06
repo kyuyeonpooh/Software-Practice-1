@@ -22,7 +22,6 @@ public class SinglePlay extends JFrame {
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     setLayout(null);
     setSize(1120, 500);
-    getContentPane().setBackground(Color.ORANGE);
     setVisible(true);
     this.addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
@@ -37,7 +36,6 @@ public class SinglePlay extends JFrame {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    piano.setBackground(Color.ORANGE);
     piano.setLayout(null);
     piano.setBounds(0, 70, 1100, 351);
     add(piano);

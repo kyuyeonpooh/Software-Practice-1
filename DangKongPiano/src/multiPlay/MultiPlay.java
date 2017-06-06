@@ -46,7 +46,6 @@ public class MultiPlay extends JFrame {
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     setLayout(null);
     setSize(1120, 500);
-    getContentPane().setBackground(Color.CYAN);
     setVisible(true);
     addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
@@ -158,7 +157,6 @@ public class MultiPlay extends JFrame {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    piano.setBackground(Color.CYAN);
     piano.setLayout(null);
     piano.setBounds(0, 125, 1100, 351);
     add(piano);

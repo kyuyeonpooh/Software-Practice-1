@@ -1,7 +1,9 @@
 package songPractice;
 
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import piano.Piano;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -13,162 +15,192 @@ import java.io.Reader;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-import piano.Piano;
-
 public class PlayMusic extends JPanel {
 
-  private static boolean isOn = false;
+	private Piano piano;
+	private String song;
+	private BufferedReader reader;
+	public static BlockingQueue<String> q;
+	private static boolean isOn = false;
+	private String[] tokens;
+	JLabel[] text;
 
-  private Piano piano;
-  private String song;
-  private BufferedReader br;
-  public static BlockingQueue<String> q;
-  private static boolean playOn = false;
-  String[] tokens;
-  static JLabel[] text;
+	public PlayMusic(String song) {
+		setLayout(null);
+		setSize(1120, 550);
+		setPiano();
+		setSong(song);
+		setBlockingQueue();
+		getSong();
+		listen();
+	}
 
-  public PlayMusic(String song) {
-    setLayout(null);
-    setSize(1100, 550);
-    setPiano();
-    setSong(song);
-    setBlockingQueue();
-    getSong();
-    readLines();
-  }
+	void listen() {
+		BlockingQ queue = new BlockingQ(this);
+		queue.start();
+	}
 
-  void readLines() {
-    int len = 0;
-    while (true) {
-      try {
-        len = readLine();
-      } catch (IOException e) {
+	public void setPiano() {
+		try {
+			PlayMusic.setIsOn(true);
+			piano = new Piano();
+			piano.setLayout(null);
+			piano.setBounds(0, 125, 1100, 351);
+			add(piano);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-      }
-      try {
-        if (len == 0)
-          break;
-        listen(len);
-      } catch (InterruptedException e) {
+	public Piano getPiano() {
+		return piano;
+	}
 
-      }
-    }
+	void setSong(String song) {
+		this.song = song;
+		System.out.println(this.song + " is selected ");
+	}
 
-  }
+	void getSong() {
+		InputStream fis;
+		try {
+			fis = new FileInputStream("./resource/music/" + this.song + ".txt");
+			Reader isr = new InputStreamReader(fis);
+			setBr(new BufferedReader(isr));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 
-  void listen(int len) throws InterruptedException {
-    BlockingQ q = new BlockingQ(this.q, len, text, tokens);
-    q.start();
-  }
+	void setBlockingQueue() {
+		q = new ArrayBlockingQueue<String>(50);
+	}
 
-  void setBlockingQueue() {
-    q = new ArrayBlockingQueue<String>(20);
-  }
+	public static void setIsOn(boolean isOn) {
+		PlayMusic.isOn = isOn;
+	}
 
-  int readLine() throws IOException {
-    String data = br.readLine();
-    if (data == null)
-      return 0;
-    tokens = data.split(" ");
-    int len = tokens.length;
+	public static boolean getIsOn() {
+		return isOn;
+	}
 
-    text = new JLabel[len];
-    for (int i = 0; i < len; i++) {
-      text[i] = setLetter(text[i], i, tokens[i]);
-    }
-    return len;
-  }
+	public void setBr(BufferedReader br) {
+		this.reader = br;
+	}
 
-  JLabel setLetter(JLabel lbl, int xpos, String melody) {
-    String txt = melody;
-    lbl = new JLabel(txt);
-    lbl.setFont(new Font("Comic Sans MS", Font.BOLD, 60));
-    lbl.setBounds(xpos * 200 + 100, 25, 200, 60);
-    add(lbl);
-    return lbl;
-  }
+	public BufferedReader getBr() {
+		return reader;
+	}
 
-  void getSong() {
-    InputStream fis;
-    try {
-      fis = new FileInputStream("./resource/music/" + this.song + ".txt");
-      Reader isr = new InputStreamReader(fis);
-      br = new BufferedReader(isr);
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
-  }
+	public void setTokens(String[] tokens) {
+		this.tokens = tokens;
+	}
 
-  void setSong(String song) {
-    this.song = song;
-    System.out.println(this.song + " is selected ");
-  }
+	public String[] getTokens() {
+		return tokens;
+	}
 
-  void setPiano() {
-    EventQueue.invokeLater(new Runnable() {
-      public void run() {
-        try {
-          PlayMusic.setPlayOn(true);
-          piano = new Piano();
-          piano.setLayout(null);
-          piano.setBounds(0, 125, 1100, 351);
-          add(piano);
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-      }
-    });
-  }
+	public void setText(JLabel[] text) {
+		this.text = text;
+	}
 
-  public static boolean getIsOn() {
-    return isOn;
-  }
-
-  public static void setIsOn(boolean isOn) {
-    PlayMusic.isOn = isOn;
-  }
-
-  public static boolean isPlayOn() {
-    return playOn;
-  }
-
-  public static void setPlayOn(boolean playOn) {
-    PlayMusic.playOn = playOn;
-  }
-
+	public JLabel[] getText() {
+		return text;
+	}
 }
 
 class BlockingQ extends Thread {
-  public BlockingQueue<String> q = null;
-  int len;
-  JLabel[] text;
-  String[] tokens;
+	PlayMusic playMusic;
+	private String[] tokens;
 
-  public BlockingQ(BlockingQueue<String> q, int len, JLabel[] text, String[] tokens) {
-    this.q = q;
-    this.len = len;
-    this.text = text;
-    this.tokens = tokens;
-  }
+	public BlockingQ(PlayMusic playMusic) {
+		this.playMusic = playMusic;
+		tokens = playMusic.getTokens();
+	}
 
-  public void run() {
-    try {
-      int correctCnt = 0;
-      while (correctCnt != len) {
-        String s = q.take();
-        if (s.equals(tokens[correctCnt])) {
-          System.out.println("Consumed: " + s);
-          text[correctCnt].setForeground(Color.ORANGE);
-          correctCnt++;
-        } else {
-          System.out.println("mis match: " + s + "/" + tokens[correctCnt]);
-        }
-      }
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-  }
+	public void run() {
+		int length = 0;
+		while (true) {
+			try {
+				length = readLine();
+			} catch (IOException e) {
+			  e.printStackTrace();
+			}
+			try {
+				if (length == 0)
+					break;
+				else {
+					int correctCount = 0;
+					while (correctCount != length) {
+						String melody = playMusic.q.take();
+						if (melody.equals(tokens[correctCount])) {
+							playMusic.text[correctCount].setForeground(Color.ORANGE);
+							correctCount++;
+						}
+					}
+				}
+			} catch (InterruptedException e) {
+			  e.printStackTrace();
+			}
+			delete(length);
+		}
+		setEnd();
+	}
+
+	int readLine() throws IOException {
+		String data = playMusic.getBr().readLine();
+		if (data == null) {
+			return 0;
+		}
+		tokens = data.split(" ");
+		int len = tokens.length;
+
+		playMusic.text = new JLabel[len];
+		for (int i = 0; i < len; i++) {
+			playMusic.text[i] = setLetter(playMusic.text[i], i, tokens[i]);
+			playMusic.text[i].setText(tokens[i]);
+			playMusic.text[i].setForeground(Color.BLACK);
+		}
+		return len;
+	}
+
+	JLabel setLetter(JLabel label, int xpos, String melody) {
+		String txt = melody;
+		label = new JLabel(txt);
+		label.setFont(new Font("Times New Roman", Font.BOLD, 50));
+		label.setBounds(xpos * 100 + 100, 25, 100, 60);
+		playMusic.add(label);
+		return label;
+	}
+
+	void delete(int len) {
+		for (int i = 0; i < len; i++) {
+			playMusic.text[i].setText("");
+			;
+		}
+	}
+
+	void setEnd() {
+		playMusic.text[0].setText("E");
+		playMusic.text[0].setForeground(Color.RED);
+		playMusic.text[0].setFont(new Font("Comic Sans MS", Font.BOLD, 60));
+		playMusic.text[0].setBounds(200, 25, 100, 60);
+		playMusic.text[1].setText("N");
+		playMusic.text[1].setForeground(Color.BLUE);
+		playMusic.text[1].setFont(new Font("Comic Sans MS", Font.BOLD, 60));
+		playMusic.text[1].setBounds(350, 25, 100, 60);
+		playMusic.text[2].setText("D");
+		playMusic.text[2].setForeground(Color.BLACK);
+		playMusic.text[2].setFont(new Font("Comic Sans MS", Font.BOLD, 60));
+		playMusic.text[2].setBounds(500, 25, 100, 60);
+	}
+
+	public void setTokens(String[] tokens) {
+		this.tokens = tokens;
+	}
+
+	public String[] getTokens() {
+		return tokens;
+	}
+
 }

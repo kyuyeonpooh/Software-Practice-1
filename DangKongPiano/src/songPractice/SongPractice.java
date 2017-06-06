@@ -1,58 +1,79 @@
 package songPractice;
 
-import java.awt.Color;
+import javax.swing.JFrame;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
+import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
+import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class SongPractice extends JFrame {
 
-  private ChooseSong chooseSong;
-  private PlayMusic playMusic;
-  private JButton start;
+	private JButton startButton;
+	private ChooseSong chooseSong;
+	private PlayMusic playMusic;
 
-  public SongPractice() {
-    this.chooseSong = new ChooseSong();
+	public SongPractice() {
+		this.chooseSong = new ChooseSong();
+		getContentPane().add(this.chooseSong);
 
-    getContentPane().add(this.chooseSong);
-    setButton();
-    setTitle("Song Practice");
-    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    setSize(1100, 550);
-    setVisible(true);
+		setStartButton();
+		setTitle("Song Practice");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(1120, 550);
+		setVisible(true);
 
-    this.addWindowListener(new WindowAdapter() {
-      public void windowClosing(WindowEvent e) {
-        PlayMusic.setIsOn(false);
-      }
-    });
-  }
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				PlayMusic.setIsOn(false);
+			}
+		});
+	}
 
-  void setButton() {
-    start = new JButton("START!");
-    start.setForeground(Color.BLACK);
-    start.setBackground(Color.WHITE);
-    start.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
-    start.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        if (chooseSong.getSelectedSong() == null) {
-          new SelectedNullException(chooseSong.getTextLabel());
-        } else {
-          playMusic = new PlayMusic(chooseSong.getSelectedSong());
-          getContentPane().removeAll();
-          getContentPane().add(playMusic);
-          revalidate();
-          repaint();
-        }
-      }
-    });
+	void setStartButton() {
+		startButton = new JButton("START!");
+		startButton.setForeground(Color.BLACK);
+		startButton.setBackground(Color.WHITE);
+		startButton.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
 
-    start.setBounds(867, 22, 150, 72);
-    chooseSong.add(start);
-  }
+		startButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (chooseSong.getSelectedSong() == null) {
+					new SelectedNullException(chooseSong.getTextLabel());
+				} else {
+					getContentPane().removeAll();
+					playMusic = new PlayMusic(chooseSong.getSelectedSong());
+					getContentPane().add(playMusic);
+					revalidate();
+					repaint();
+				}
+			}
+		});
+
+		startButton.setBounds(867, 22, 150, 72);
+		chooseSong.add(startButton);
+	}
+
+	public JButton getStartButton() {
+		return startButton;
+	}
+
+	public void setChooseSong(ChooseSong chooseSong) {
+		this.chooseSong = chooseSong;
+	}
+
+	public ChooseSong getChooseSong() {
+		return chooseSong;
+	}
+
+	public void setPlayMusic(PlayMusic playMusic) {
+		this.playMusic = playMusic;
+	}
+
+	public PlayMusic getPlayMusic() {
+		return playMusic;
+	}
+
 }
