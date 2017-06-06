@@ -61,11 +61,11 @@ public class MultiPlay extends JFrame {
     public void run() {
       try {
         socket = new Socket("localhost", 5000);
-        DataInputStream playerNum = new DataInputStream(socket.getInputStream());
-        System.out.println(playerNum.readInt());
+        DataInputStream message = new DataInputStream(socket.getInputStream());
+        System.out.println(message.readUTF());
         while (true) {
-          DataOutputStream output = new DataOutputStream(socket.getOutputStream());
-          output.writeUTF(queue.take());
+          DataOutputStream send = new DataOutputStream(socket.getOutputStream());
+          send.writeUTF(queue.take());
         }
       } catch (Exception e) {
         e.printStackTrace();
