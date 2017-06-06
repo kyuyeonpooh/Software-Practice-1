@@ -28,14 +28,14 @@ public class ChooseSong extends JPanel implements ListSelectionListener {
     textLabel.setBounds(20, 0, 800, 116);
     add(textLabel);
   }
-  
+
   @Override
   public void valueChanged(ListSelectionEvent evt) {
     int selected = list.getSelectedIndex();
     textLabel.setText("<" + songs[selected] + "> is selected!");
     selectedSong = songs[selected];
   }
-  
+
   public void setSongList() {
     String[] list = { "School Bell", "Little Star" };
     songs = list.clone();
@@ -57,9 +57,9 @@ public class ChooseSong extends JPanel implements ListSelectionListener {
   public String getSelectedSong() {
     return selectedSong;
   }
-  
-  public JLabel getTextLabel(){
-	  return textLabel;
+
+  public JLabel getTextLabel() {
+    return textLabel;
   }
-  
+
 }
