@@ -20,17 +20,20 @@ import javax.swing.JButton;
 
 import java.awt.Color;
 
+/* new window generated for main menu */
 public class Main extends JFrame {
 
-  private JPanel mainPanel;
-  private JLabel titleLabel;
-  private JButton[] buttons;
-  private AbstractAction pressed;
-
+  private JPanel mainPanel;       /* panel with background, title, and buttons */
+  private JLabel titleLabel;      /* title label */
+  private JButton[] buttons;      /* buttons with 3 play modes */
+  private AbstractAction pressed; /* action what to do when each button is pressed */
+  
+  /* main function */
   public static void main(String[] args) {
     new Main();
   }
-
+  
+  /* constructor for main class */
   public Main() {
     setTitle("DangKongPiano");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,7 +46,8 @@ public class Main extends JFrame {
     setContentPane(mainPanel);
     setVisible(true);
   }
-
+  
+  /* set menu panel background with image */
   public void setPanel() {
     ImageIcon background = new ImageIcon("./resource/Image/background.jpg");
     mainPanel = new JPanel() {
@@ -55,11 +59,13 @@ public class Main extends JFrame {
     };
     mainPanel.setLayout(null);
   }
-
+  
+  /* return menu panel */
   public JPanel getPanel() {
     return this.mainPanel;
   }
-
+  
+  /* set title label */
   public void setTitleLabel(String titleName) {
     titleLabel = new JLabel();
     titleLabel.setBounds(220, 32, 500, 55);
@@ -69,11 +75,13 @@ public class Main extends JFrame {
     titleLabel.setBackground(Color.BLACK);
     this.mainPanel.add(titleLabel);
   }
-
+  
+  /* returns title label */
   public JLabel getTitleLabel() {
     return this.titleLabel;
   }
-
+  
+  /* set buttons for 3 play modes */
   public void setButtons() {
     buttons = new JButton[5];
     String[] buttonNames = { "SinglePlay", "MultiPlay", "SongPractice" };
@@ -88,17 +96,20 @@ public class Main extends JFrame {
       i += 1;
     }
   }
-
+  
+  /* set bounds for each button with given image */
   private JButton setButton(ImageIcon icon, int xPos) {
     JButton button = new JButton(icon);
     button.setBounds(xPos, 270, 250, 146);
     return button;
   }
-
+  
+  /* return play mode buttons */
   public JButton[] getButtons() {
     return this.buttons;
   }
-
+  
+  /* set what to do when play mode button is clicked */
   public void setPressed() {
     this.pressed = new AbstractAction() {
       @Override
@@ -110,7 +121,7 @@ public class Main extends JFrame {
           new MultiPlay();
         } else if (command.equals("SongPractice") && !PlayMusic.getIsOn()) {
           new SongPractice();
-        } else {
+        } else { /* when user tries to open play mode that is already opened */
           try {
             throw new AlreadyOnException();
           } catch (AlreadyOnException e) {
@@ -119,7 +130,8 @@ public class Main extends JFrame {
       }
     };
   }
-
+  
+  /* return action for press */
   public AbstractAction getPressed() {
     return this.pressed;
   }

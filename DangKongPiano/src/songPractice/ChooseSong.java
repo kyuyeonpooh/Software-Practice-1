@@ -9,79 +9,91 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+/* class for choosing song among list */
 public class ChooseSong extends JPanel implements ListSelectionListener {
 
-	private JList<String> list;
-	private String[] songList;
-	private JScrollPane listScroll;
-	private JLabel textLabel;
-	private String selectedSong;
+  private JList<String> list;     /* list of songs to screen */
+  private String[] songList;      /* list of songs in project */
+  private JScrollPane listScroll; /* listScroll for selecting music */
+  private JLabel textLabel;       /* show whether user choose something */
+  private String selectedSong;    /* String for selected music */
 
-	public ChooseSong() {
-		setLayout(null);
-		setSongList();
-		setList();
-		setTextLabel();
-	}
-	
-	public void valueChanged(ListSelectionEvent evt) {
-		int selected = list.getSelectedIndex();
-		textLabel.setText("<" + songList[selected] + "> is selected!");
-		selectedSong = songList[selected];
-	}
+  /* constructor */
+  public ChooseSong() {
+    setLayout(null);
+    setSongList();
+    setList();
+    setTextLabel();
+  }
 
-	public void setList() {
-		listScroll = new JScrollPane();
-		listScroll.setBounds(14, 115, 1037, 351);
+  /* get selected song */
+  public void valueChanged(ListSelectionEvent evt) {
+    int selected = list.getSelectedIndex();
+    textLabel.setText("<" + songList[selected] + "> is selected!");
+    selectedSong = songList[selected];
+  }
 
-		list = new JList<String>(songList);
-		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		list.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
+  /* set list, and show to user */
+  public void setList() {
+    listScroll = new JScrollPane();
+    listScroll.setBounds(14, 115, 1037, 351);
 
-		listScroll.setViewportView(list);
-		add(listScroll);
-		list.addListSelectionListener(this);
-	}
+    list = new JList<String>(songList);
+    list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    list.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
 
-	public JList<String> getList(){
-		return this.list;
-	}
+    listScroll.setViewportView(list);
+    add(listScroll);
+    list.addListSelectionListener(this);
+  }
 
-	public void setSongList() {
-		String[] list = { "School Bell", "Little Star", "Mountain Rabbit",
-		                  "Baduk's Ring", "Cannon" };
-		songList = list.clone();
-	}
-	
-	public String[] getSongList(){
-		return this.songList;
-	}
-	
-	public void setListScroll(JScrollPane listScroll) {
-		this.listScroll = listScroll;
-	}
+  /* return list */
+  public JList<String> getList() {
+    return this.list;
+  }
 
-	public JScrollPane getListScroll() {
-		return listScroll;
-	}
-	
-	void setTextLabel() {
-		textLabel = new JLabel("Choose Song!");
-		textLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 40));
-		textLabel.setBounds(20, 0, 800, 116);
-		add(textLabel);
-	}
+  /* set list of songs */
+  public void setSongList() {
+    String[] list = { "School Bell", "Little Star", "Mountain Rabbit", "Baduk's Ring", "Cannon" };
+    songList = list.clone();
+  }
 
-	public JLabel getTextLabel() {
-		return textLabel;
-	}
+  /* return list of songs */
+  public String[] getSongList() {
+    return this.songList;
+  }
 
-	public void setSelectedSong(String selectedSong){
-		this.selectedSong=selectedSong;
-	}
+  /* set list scroll */
+  public void setListScroll(JScrollPane listScroll) {
+    this.listScroll = listScroll;
+  }
 
-	public String getSelectedSong() {
-		return selectedSong;
-	}
-	
+  /* return list of songs */
+  public JScrollPane getListScroll() {
+    return listScroll;
+  }
+
+  /* show state whether user select song */
+  void setTextLabel() {
+    textLabel = new JLabel("Choose Song!");
+    textLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 40));
+    textLabel.setBounds(20, 0, 800, 116);
+    add(textLabel);
+  }
+
+  /* return state(textLabel) */
+  public JLabel getTextLabel() {
+    return textLabel;
+  }
+
+  /* setter for variable : selected song */
+  public void setSelectedSong(String selectedSong) {
+    this.selectedSong = selectedSong;
+  }
+
+  /* getter for variable : selected song */
+  public String getSelectedSong() {
+    return selectedSong;
+  }
+
 }

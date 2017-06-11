@@ -11,14 +11,16 @@ import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 import java.awt.Font;
 
+/* class for pedal of piano */
 public class Pedal {
   
-  private static boolean isPedaled;
+  private static boolean isPedaled;  /* state for pedal */
 
-  private Color color;  
-  private AbstractAction pressed;
-  private JButton button;
+  private Color color;               /* color for pedal as state */
+  private AbstractAction pressed;    /* AbstractAction for pressed */
+  private JButton button;            /* button for pedal */
 
+  /* constructor */
   public Pedal() {
     this.setIsPedaled(false);
     this.setColor();
@@ -26,9 +28,11 @@ public class Pedal {
     this.setButton();
   }
   
+  /* class to change color of pedal when pressed */
   private class ColorEffect extends Thread {    
     
     @Override
+    /* change button's color */
     public void run() {
       if(button.getBackground() == Color.RED){
         button.setForeground(Color.BLACK);
@@ -44,22 +48,27 @@ public class Pedal {
     
   }
   
+  /* setter for isPedaled */
   public void setIsPedaled(boolean isPedaled) {
     Pedal.isPedaled = isPedaled;
   }  
   
+  /* getter for isPedaled */
   public static boolean getIsPedaled() {
     return isPedaled;
   }
 
+  /* setter for color */
   public void setColor() {
     this.color = Color.RED;
   }
 
+  /* getter for color */
   public Color getColor() {
     return color;
   }
 
+  /* set Action to change isPedaled state when listen */
   public void setPressed() {
     this.pressed = new AbstractAction() {
       @Override
@@ -74,10 +83,12 @@ public class Pedal {
     };
   }
 
+  /* getter for pressed */
   public AbstractAction getPressed() {
     return this.pressed;
   }
 
+  /* setter for button */
   public void setButton() {
     this.button = new JButton("OFF");
     this.button.setFont(new Font("Arial Narrow", Font.BOLD | Font.ITALIC, 20));
@@ -90,6 +101,7 @@ public class Pedal {
     this.button.setBounds(970, 101, 101, 101);
   }
 
+  /*getter for button */
   public JButton getButton() {
     return button;
   }

@@ -1,6 +1,5 @@
 package singlePlay;
 
-import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -9,12 +8,14 @@ import javax.swing.JFrame;
 
 import piano.Piano;
 
+/* class for single play */
 public class SinglePlay extends JFrame {
 
-  private static boolean isOn = false;
+  private static boolean isOn = false;   /* state of single play */
   
-  private Piano piano;
+  private Piano piano;                   /* piano */
 
+  /* constructor for single play */
   public SinglePlay() {
     SinglePlay.setIsOn(true);
     setPiano();
@@ -23,6 +24,7 @@ public class SinglePlay extends JFrame {
     setLayout(null);
     setSize(1120, 500);
     setVisible(true);
+    /* window listener to notify that this play mode is closed */
     this.addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
         SinglePlay.setIsOn(false);
@@ -30,6 +32,7 @@ public class SinglePlay extends JFrame {
     });      
   }
   
+  /* set piano to screen */
   public void setPiano(){
     try {
       piano = new Piano();
@@ -41,14 +44,17 @@ public class SinglePlay extends JFrame {
     add(piano);
   }
 
+  /* getter for piano */
   public Piano getPiano(){
     return this.piano;
   }
   
+  /* setter for isOn */
   public static void setIsOn(boolean isOn) {
     SinglePlay.isOn = isOn;
   }
   
+  /* getter for isOn */
   public static boolean getIsOn() {
     return isOn;
   }
