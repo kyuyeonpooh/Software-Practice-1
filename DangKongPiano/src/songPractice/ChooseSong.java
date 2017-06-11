@@ -48,7 +48,8 @@ public class ChooseSong extends JPanel implements ListSelectionListener {
 	}
 
 	public void setSongList() {
-		String[] list = { "School Bell", "Little Star", "Mountain Rabbit" };
+		String[] list = { "School Bell", "Little Star", "Mountain Rabbit",
+		                  "Baduk's Ring", "Cannon" };
 		songList = list.clone();
 	}
 	
