@@ -15,7 +15,11 @@ import java.io.Reader;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-/* class for playing music as score */
+/**
+ * class for playing music as score
+ * @author team2
+ *
+ */
 public class PlayMusic extends JPanel {
 
   private static BlockingQueue<String> queue; /* in order to check what user type */
@@ -27,7 +31,10 @@ public class PlayMusic extends JPanel {
   private String[] tokens;        /* array of melodies in score file */
   JLabel[] text;                  /* show score on the screen */
 
-  /* constructor for play music */
+  /**
+   * constructor for play music
+   * @param song selected song from ChoooseSong
+   */
   public PlayMusic(String song) {
     setLayout(null);
     setSize(1120, 550);
@@ -38,13 +45,13 @@ public class PlayMusic extends JPanel {
     listen();
   }
 
-  /* listen whether user type correct melody */
+  /** listen whether user type correct melody */
   void listen() {
     BlockingQ queue = new BlockingQ(this);
     queue.start();
   }
 
-  /* set piano for playing music */
+  /** set piano for playing music */
   public void setPiano() {
     try {
       PlayMusic.setIsOn(true);
@@ -57,18 +64,24 @@ public class PlayMusic extends JPanel {
     }
   }
 
-  /* getter for piano */
+  /** 
+   * getter for piano
+   * @return piano (will play with player)
+   */
   public Piano getPiano() {
     return piano;
   }
 
-  /* setter for song, print which song is selected to console */
+  /**
+   * setter for song, print which song is selected to console
+   * @param song set which song is selected
+   */
   void setSong(String song) {
     this.song = song;
     System.out.println(this.song + " is selected ");
   }
 
-  /* get selected song from resource */
+  /** get selected song from resource */
   void getSong() {
     InputStream fis;
     try {
@@ -80,73 +93,113 @@ public class PlayMusic extends JPanel {
     }
   }
 
-  /* setter for BlockingQueue */
+  /** setter for BlockingQueue */
   void setBlockingQueue() {
     setQueue(new ArrayBlockingQueue<String>(50));
   }
 
-  /* setter for IsOn */
+  /**
+   * setter for isOn
+   * @param isOn state of PlayMusic
+   */
   public static void setIsOn(boolean isOn) {
     PlayMusic.isOn = isOn;
   }
 
-  /* getter for IsOn */
+  /**
+   * getter for isOn
+   * @return whether PlayMusic is on
+   */
   public static boolean getIsOn() {
     return isOn;
   }
 
-  /* setter for bufferedReader : br */
+  /**
+   * setter for bufferedReader : br
+   * @param br BufferedReader for setting
+   */
   public void setBr(BufferedReader br) {
     this.reader = br;
   }
 
-  /* getter for bufferedReader : br */
+  /**
+   * getter for bufferedReader : br
+   * @return
+   */
   public BufferedReader getBr() {
     return reader;
   }
 
-  /* setter for tokens */
+  /**
+   * setter for tokens
+   * @param tokens melodies to type
+   */
   public void setTokens(String[] tokens) {
     this.tokens = tokens;
   }
 
-  /* getter for tokens */
+  /**
+   * getter for tokens
+   * @return melodies user has to type
+   */
   public String[] getTokens() {
     return tokens;
   }
 
-  /* setter for text */
+
+  /**
+   * setter for text 
+   * @param text for state of selected song
+   */
   public void setText(JLabel[] text) {
     this.text = text;
   }
 
-  /* getter for text */
+  /**
+   * getter for text
+   * @return text labels
+   */
   public JLabel[] getText() {
     return text;
   }
 
+  /**
+   * getter for BlockingQueue for melodies
+   * @return queue( checking whether melodies are correct )
+   */
   public static BlockingQueue<String> getQueue() {
     return queue;
   }
 
+  /**
+   * setter for BlockingQueue for melodies
+   * @param queue( checking whether melodies are correct )
+   */
   public static void setQueue(BlockingQueue<String> queue) {
     PlayMusic.queue = queue;
   }
 }
 
-/* class for checking all the time whether user type well */
+/**
+ * class for checking all the time whether user type well  
+ * @author team2
+ *
+ */
 class BlockingQ extends Thread {
   
   PlayMusic playMusic;
   private String[] tokens;
 
-  /* constructor */
+  /**
+   * constructor
+   * @param playMusic
+   */
   public BlockingQ(PlayMusic playMusic) {
     this.playMusic = playMusic;
     tokens = playMusic.getTokens();
   }
 
-  /* listen until song completed */
+  /** listen until song completed */
   public void run() {
     int length = 0;
     while (true) {
@@ -176,7 +229,12 @@ class BlockingQ extends Thread {
     setEnd();
   }
 
-  /* read a line of file, and print melody */
+
+  /**
+   * read a line of file, and print melody 
+   * @return length of melodies
+   * @throws IOException
+   */
   int readLine() throws IOException {
     String data = playMusic.getBr().readLine();
     if (data == null) {
@@ -194,7 +252,13 @@ class BlockingQ extends Thread {
     return len;
   }
 
-  /* show melody to screen */
+  /**
+   * show melody to screen
+   * @param label	for show melody to screen
+   * @param xpos	x position of label
+   * @param melody	melody user has to type
+   * @return label
+   */
   JLabel setMelody(JLabel label, int xpos, String melody) {
     String txt = melody;
     label = new JLabel(txt);
@@ -204,7 +268,10 @@ class BlockingQ extends Thread {
     return label;
   }
 
-  /* delete a line of melody */
+  /**
+   * delete a line of melody
+   * @param len the number of labels(melodies) to delete
+   */
   void delete(int len) {
     for (int i = 0; i < len; i++) {
       playMusic.text[i].setText("");
@@ -212,7 +279,7 @@ class BlockingQ extends Thread {
     }
   }
 
-  /* display "END" when player finished music */
+  /** display "END" when player finished music */
   void setEnd() {
     playMusic.text[0].setText("E");
     playMusic.text[0].setForeground(Color.RED);
@@ -228,12 +295,18 @@ class BlockingQ extends Thread {
     playMusic.text[2].setBounds(650, 25, 100, 60);
   }
 
-  /* setter for tokens */
+  /**
+   * setter for tokens
+   * @param tokens melodies to type
+   */
   public void setTokens(String[] tokens) {
     this.tokens = tokens;
   }
 
-  /* getter for tokens */
+  /**
+   * getter for tokens
+   * @return tokens to type
+   */
   public String[] getTokens() {
     return tokens;
   }

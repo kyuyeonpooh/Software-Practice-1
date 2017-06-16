@@ -15,18 +15,14 @@ import javax.swing.event.ListSelectionListener;
  */
 
 public class ChooseSong extends JPanel implements ListSelectionListener {
-  /** list of songs to screen */
-  private JList<String> list;     
-  /** list of songs in project */
-  private String[] songList;      
-  /** listScroll for selecting music */
-  private JScrollPane listScroll; 
-  /** show whether user choose something */
-  private JLabel textLabel;       
-  /** String for selected music */
-  private String selectedSong;    
 
-  /** constructor */
+  private JList<String> list;       /* list of songs to screen */
+  private String[] songList;        /* list of songs in project */
+  private JScrollPane listScroll; 	  /* listScroll for selecting music */
+  private JLabel textLabel;         /* show whether user choose something */
+  private String selectedSong;      /* String for selected music */
+
+  /** constructor OF Choose Song */
   public ChooseSong() {
     setLayout(null);
     setSongList();
@@ -68,15 +64,17 @@ public class ChooseSong extends JPanel implements ListSelectionListener {
     return this.list;
   }
 
-  /**
-   *  set list of songs */
+  /** set list of songs */
   public void setSongList() {
     String[] list = { "School Bell", "Little Star", "Mountain Rabbit", "Baduk's Ring", "Cannon" };
     songList = list.clone();
   }
 
+
   /**
-   *  return list of songs */
+   * return list of songs
+   * @return list of songs
+   */
   public String[] getSongList() {
     return this.songList;
   }
@@ -89,8 +87,11 @@ public class ChooseSong extends JPanel implements ListSelectionListener {
     this.listScroll = listScroll;
   }
 
+
   /**
-   *  return list of songs */
+   * return list of songs
+   * @return
+   */
   public JScrollPane getListScroll() {
     return listScroll;
   }
@@ -105,13 +106,17 @@ public class ChooseSong extends JPanel implements ListSelectionListener {
   }
 
   /**
-   *  return state(textLabel) */
+   * return state of text label
+   * @return state of text label
+   */
   public JLabel getTextLabel() {
     return textLabel;
   }
 
-  /**
-   *  setter for variable : selected song */
+ /**
+  * setter for selected song
+  * @param selectedSong user choose
+  */
   public void setSelectedSong(String selectedSong) {
     this.selectedSong = selectedSong;
   }

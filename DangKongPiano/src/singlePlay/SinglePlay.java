@@ -8,14 +8,18 @@ import javax.swing.JFrame;
 
 import piano.Piano;
 
-/* class for single play */
+/**
+ * class for single play
+ * @author team2
+ *
+ */
 public class SinglePlay extends JFrame {
 
   private static boolean isOn = false;   /* state of single play */
   
   private Piano piano;                   /* piano */
 
-  /* constructor for single play */
+  /** constructor for single play */
   public SinglePlay() {
     SinglePlay.setIsOn(true);
     setPiano();
@@ -32,7 +36,7 @@ public class SinglePlay extends JFrame {
     });      
   }
   
-  /* set piano to screen */
+  /** set piano to screen */
   public void setPiano(){
     try {
       piano = new Piano();
@@ -44,17 +48,26 @@ public class SinglePlay extends JFrame {
     add(piano);
   }
 
-  /* getter for piano */
+  /**
+   * getter for piano
+   * @return Piano
+   */
   public Piano getPiano(){
     return this.piano;
   }
   
-  /* setter for isOn */
+  /**
+   * setter for isOn
+   * @param isOn set this.isOn with it
+   */
   public static void setIsOn(boolean isOn) {
     SinglePlay.isOn = isOn;
   }
   
-  /* getter for isOn */
+  /**
+   * getter for isOn
+   * @return isOn
+   */
   public static boolean getIsOn() {
     return isOn;
   }

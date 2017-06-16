@@ -9,14 +9,18 @@ import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
-/* class for managing flow of song practice */
+/**
+ * class for managing flow of song practice
+ * @author team2
+ *
+ */
 public class SongPractice extends JFrame {
 
   private JButton startButton;   /* button for start playing music */
   private ChooseSong chooseSong; /* panel for choosing song */
   private PlayMusic playMusic;   /* panel for playing music */
 
-  /* constructor for song practice */
+  /** constructor for song practice */
   public SongPractice() {
     this.chooseSong = new ChooseSong();
     getContentPane().add(this.chooseSong);
@@ -34,7 +38,7 @@ public class SongPractice extends JFrame {
     });
   }
 
-  /* initialize start button */
+  /** initialize start button */
   void setStartButton() {
     startButton = new JButton("START!");
     startButton.setForeground(Color.BLACK);
@@ -60,27 +64,42 @@ public class SongPractice extends JFrame {
     chooseSong.add(startButton);
   }
 
-  /* getter for startButton */
+  /**
+   * getter for startButton
+   * @return startButton for practice song
+   */
   public JButton getStartButton() {
     return startButton;
   }
 
-  /* setter for ChooseSong */
+ /**
+  * setter for chooseSong
+  * @param chooseSong user choose in this panel
+  */
   public void setChooseSong(ChooseSong chooseSong) {
     this.chooseSong = chooseSong;
   }
 
-  /* getter for chooseSong */
+ /**
+  * getter for chooseSong
+  * @return chooseSong
+  */
   public ChooseSong getChooseSong() {
     return chooseSong;
   }
 
-  /* setter for playMusic */
+  /**
+   * setter for playMusic
+   * @param playMusic set PlayMusic with it
+   */
   public void setPlayMusic(PlayMusic playMusic) {
     this.playMusic = playMusic;
   }
 
-  /* getter for playMusic */
+  /**
+   * getter for playMusic
+   * @return PlayMusic
+   */
   public PlayMusic getPlayMusic() {
     return playMusic;
   }

@@ -6,7 +6,11 @@ import java.io.IOException;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-/* class for instantiating piano*/
+/**
+ * class for instantiating piano
+ * @author samsung
+ *
+ */
 public class Piano extends JPanel {
 
   private Keyboard keyboard;   /* keyboard for piano */
