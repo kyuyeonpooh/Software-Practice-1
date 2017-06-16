@@ -12,39 +12,38 @@ import songPractice.SongPractice;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
-import java.io.FileNotFoundException;
 
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import java.awt.Color;
+
 /**
- * new window generated for main menu
- * @author team 2
+ * New window generated for main menu
+ * @author Team 2: Kim Kyu Yeon, Kim Yeon Jae
  *
  */
 public class Main extends JFrame {
   
-  /** panel with background, title, and buttons */
+  /** Panel with background, title, and buttons */
   private JPanel mainPanel;  
   /** title label */
   private JLabel titleLabel;      
-  /** buttons with 3 play modes */
+  /** Buttons with three play modes */
   private JButton[] buttons;    
-  /** action what to do when each button is pressed */
+  /** Action what to do when each button is pressed */
   private AbstractAction pressed;  
   
   /**
    * 
-   * start Program
    */
   public static void main(String[] args) {
     new Main();
   }
   
   /**
-   * constructor for main class
+   * Constructor for main class
    */
   public Main() {
     setTitle("DangKongPiano");
