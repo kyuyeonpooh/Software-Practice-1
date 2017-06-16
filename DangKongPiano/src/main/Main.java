@@ -19,21 +19,40 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import java.awt.Color;
-
-/* new window generated for main menu */
+/**
+ * new window generated for main menu
+ * @author team 2
+ *
+ */
 public class Main extends JFrame {
-
-  private JPanel mainPanel;       /* panel with background, title, and buttons */
-  private JLabel titleLabel;      /* title label */
-  private JButton[] buttons;      /* buttons with 3 play modes */
-  private AbstractAction pressed; /* action what to do when each button is pressed */
+  /**
+   * panel with background, title, and buttons
+   */
+  private JPanel mainPanel;       
+  /**
+   * title label
+   */
+  private JLabel titleLabel;      
+  /**
+   *  buttons with 3 play modes 
+   */
+  private JButton[] buttons;
+  /**
+   *  action what to do when each button is pressed 
+   */
+  private AbstractAction pressed; 
   
-  /* main function */
+  /**
+   * 
+   * start Program
+   */
   public static void main(String[] args) {
     new Main();
   }
   
-  /* constructor for main class */
+  /**
+   * constructor for main class
+   */
   public Main() {
     setTitle("DangKongPiano");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,7 +66,10 @@ public class Main extends JFrame {
     setVisible(true);
   }
   
-  /* set menu panel background with image */
+  /**
+   * set menu panel background with image
+   * @return void
+   */
   public void setPanel() {
     ImageIcon background = new ImageIcon("./resource/Image/background.jpg");
     mainPanel = new JPanel() {
@@ -60,12 +82,19 @@ public class Main extends JFrame {
     mainPanel.setLayout(null);
   }
   
-  /* return menu panel */
+  /**
+   *  return menu panel 
+   *  @return mainPanel
+   */
   public JPanel getPanel() {
     return this.mainPanel;
   }
   
-  /* set title label */
+  /**
+   *  set title label 
+   *  @param titleName set title label with this
+   *  @return void
+   */
   public void setTitleLabel(String titleName) {
     titleLabel = new JLabel();
     titleLabel.setBounds(220, 32, 500, 55);
@@ -76,12 +105,18 @@ public class Main extends JFrame {
     this.mainPanel.add(titleLabel);
   }
   
-  /* returns title label */
+  /** 
+   * returns title label 
+   * @return void
+   */
   public JLabel getTitleLabel() {
     return this.titleLabel;
   }
   
-  /* set buttons for 3 play modes */
+  /**
+   *  set buttons for 3 play modes 
+   *  @return void
+   *  */
   public void setButtons() {
     buttons = new JButton[5];
     String[] buttonNames = { "SinglePlay", "MultiPlay", "SongPractice" };
@@ -97,19 +132,26 @@ public class Main extends JFrame {
     }
   }
   
-  /* set bounds for each button with given image */
+ /**
+  * set bounds for each button with given image
+  * @param icon  set button with this Image Icon
+  * @param xPos  button's x position
+  * @return
+  */
   private JButton setButton(ImageIcon icon, int xPos) {
     JButton button = new JButton(icon);
     button.setBounds(xPos, 270, 250, 146);
     return button;
   }
   
-  /* return play mode buttons */
+  /**
+   *  return play mode buttons */
   public JButton[] getButtons() {
     return this.buttons;
   }
   
-  /* set what to do when play mode button is clicked */
+  /**
+   *  set what to do when play mode button is clicked */
   public void setPressed() {
     this.pressed = new AbstractAction() {
       @Override
@@ -131,7 +173,8 @@ public class Main extends JFrame {
     };
   }
   
-  /* return action for press */
+  /**
+   *  return action for press */
   public AbstractAction getPressed() {
     return this.pressed;
   }
