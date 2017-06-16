@@ -23,7 +23,7 @@ import piano.Pedal;
 import piano.Piano;
 
 /**
- * class with window for multiplay mode
+ * Class with window for multiplay mode
  * @author Team 2: Kim Kyu Yeon, Kim Yeon Jae
  *
  */
@@ -39,7 +39,7 @@ public class MultiPlay extends JFrame {
   private HashMap<String, Integer> melodyHash; /* hash map whose key is melody name and value is index number in Keyboard */
   
   /**
-   * constructor of MultiPlay
+   * Constructor of MultiPlay
    */
   public MultiPlay() {
     MultiPlay.setIsOn(true);
@@ -69,7 +69,10 @@ public class MultiPlay extends JFrame {
    * 
    */
   private class ClientSender extends Thread {
-
+    
+    /**
+     * send the pressed melody to the server
+     */
     @Override
     public void run() {
       try {
@@ -93,7 +96,11 @@ public class MultiPlay extends JFrame {
    *
    */
   private class ClientReceiver extends Thread {
-
+    
+    /**
+     * receive the melody from the server that other player pressed
+     * and print and play the melody
+     */
     @Override
     public void run() {
       try {
@@ -123,12 +130,15 @@ public class MultiPlay extends JFrame {
     
     /**
      * constructor for MultiColorEffect
-     * @param melody 
+     * @param melody name of melody that other player pressed
      */
     private MultiColorEffect(String melody) {
       this.melody = melody;
     }
-
+    
+    /**
+     * paint key buttwon with red color for 200ms
+     */
     @Override
     public void run() {
       Keyboard keyboard = piano.getKeyboard();

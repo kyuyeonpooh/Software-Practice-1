@@ -16,16 +16,11 @@ import javax.swing.event.ListSelectionListener;
 
 public class ChooseSong extends JPanel implements ListSelectionListener {
 
-  /** list of songs to screen */
-  private JList<String> list;     
-  /** list of songs in project */
-  private String[] songList;       
-  /** listScroll for selecting music */
-  private JScrollPane listScroll; 	
-  /** show whether user choose something */
-  private JLabel textLabel;  
-  /** String for selected music */
-  private String selectedSong;      
+  private JList<String> list;       /* list of songs to screen */
+  private String[] songList;        /* list of songs in project */
+  private JScrollPane listScroll;   /* listScroll for selecting music */
+  private JLabel textLabel;         /* show whether user choose something */
+  private String selectedSong;      /* String for selected music */
 
   /** constructor OF Choose Song */
   public ChooseSong() {
