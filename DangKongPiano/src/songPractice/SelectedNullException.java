@@ -4,14 +4,14 @@ import javax.swing.JLabel;
 
 /**
  * Exception for selecting nothing
- * @author team 2
+ * @author Team 2: Kim Kyu Yeon, Kim Yeon Jae
  *
  */
 public class SelectedNullException extends Exception {
 
   /**
    * Exception for selected nothing
-   * @param jLabel to show to screen
+   * @param jLabel label with message shown on the screen
    */
   public SelectedNullException(JLabel jLabel) {
     jLabel.setText("YOU DON'T SELECT SONG");

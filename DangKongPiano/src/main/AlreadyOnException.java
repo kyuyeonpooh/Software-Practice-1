@@ -1,7 +1,7 @@
 package main;
 
 /**
- * Exception for when user opens same play mode which is already on
+ * Exception for when user opens same play mode that is already on
  * @author Team 2: Kim Kyu Yeon, Kim Yeon Jae
  *
  */

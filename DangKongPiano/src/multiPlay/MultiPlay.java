@@ -28,15 +28,22 @@ import piano.Piano;
  *
  */
 public class MultiPlay extends JFrame {
-
-  private static boolean isOn = false;        /* state of multiplay */
-  private static BlockingQueue<String> queue; /* blocking queue used for send melodies that user pressed to server */
-
-  private Piano piano;                         /* piano which will be shown on the screen */
-  private Socket socket;                       /* socket to communicate with server */
-  private ClientSender sender;                 /* thread which sends melody with pressed key */
-  private ClientReceiver receiver;             /* thread which receives melody from other player */
-  private HashMap<String, Integer> melodyHash; /* hash map whose key is melody name and value is index number in Keyboard */
+  
+  /** State of multiplay */
+  private static boolean isOn = false;       
+  /** Blocking queue used for send melodies that user pressed to server */
+  private static BlockingQueue<String> queue;
+  
+  /** Piano which will be shown on the screen */
+  private Piano piano;
+  /** Socket to communicate with server */
+  private Socket socket;
+  /** Thread which sends melody with pressed key */
+  private ClientSender sender;
+  /** Thread which receives melody from other player */
+  private ClientReceiver receiver;            
+  /** HashMap whose key is melody name and value is index number in keyboard */
+  private HashMap<String, Integer> melodyHash;
   
   /**
    * Constructor of MultiPlay
@@ -64,14 +71,15 @@ public class MultiPlay extends JFrame {
   }
   
   /**
-   * thread which constantly send melodies that user pressed to server
+   * Thread which constantly send melodies that user pressed to server
    * @author Team 2: Kim Kyu Yeon, Kim Yeon Jae
    * 
    */
   private class ClientSender extends Thread {
     
     /**
-     * send the pressed melody to the server
+     * Send the pressed melody to the server
+     * You can modify IP address and port number here
      */
     @Override
     public void run() {
@@ -91,15 +99,14 @@ public class MultiPlay extends JFrame {
   }
   
   /**
-   * thread which constantly receive melodies that other user pressed from server
+   * Thread which constantly receive melodies that other user pressed from server
    * @author Team 2: Kim Kyu Yeon, Kim Yeon Jae
    *
    */
   private class ClientReceiver extends Thread {
     
     /**
-     * receive the melody from the server that other player pressed
-     * and print and play the melody
+     * Receive, print and play the melody from the server that other player pressed
      */
     @Override
     public void run() {
@@ -120,7 +127,7 @@ public class MultiPlay extends JFrame {
   }
   
   /**
-   * thread which paints keys that other player pressed in red color
+   * Thread which paints keys that other player pressed in red color
    * @author Team 2: Kim Kyu Yeon, Kim Yeon Jae
    *
    */
@@ -129,7 +136,7 @@ public class MultiPlay extends JFrame {
     private String melody; /* melody that other player pressed */
     
     /**
-     * constructor for MultiColorEffect
+     * Constructor for MultiColorEffect
      * @param melody name of melody that other player pressed
      */
     private MultiColorEffect(String melody) {
@@ -137,7 +144,7 @@ public class MultiPlay extends JFrame {
     }
     
     /**
-     * paint key buttwon with red color for 200ms
+     * Paint key buttwon with red color for 200ms
      */
     @Override
     public void run() {
@@ -156,7 +163,10 @@ public class MultiPlay extends JFrame {
 
   }
   
-  /* when ClientReceiver thread gets data from server, this plays melody with that data */
+  /**
+   * Plays melody that other play pressed and show what it is
+   * @param melody
+   */
   private void playMelody(String melody) {
     File soundFile;
     if (Pedal.getIsPedaled()) {
@@ -176,7 +186,9 @@ public class MultiPlay extends JFrame {
     }
   }
   
-  /* hash map whose key is name of melody and value is index of Keyboard */
+  /**
+   * Set melodyHash whose key is name of melody and value is index of keyboard
+   */
   public void setMelodyHash() {
     melodyHash = new HashMap<String, Integer>();
     String[] melodies;
@@ -187,12 +199,17 @@ public class MultiPlay extends JFrame {
     }
   }
   
-  /* return hash map */
+  /**
+   * Getter for MelodyHash
+   * @return melodyHash
+   */
   public HashMap<String, Integer> getMelodyHash() {
     return this.melodyHash;
   }
   
-  /* set piano on the screen */
+  /**
+   * Set piano on the screen
+   */
   public void setPiano() {
     try {
       piano = new Piano();
@@ -204,27 +221,41 @@ public class MultiPlay extends JFrame {
     add(piano);
   }
   
-  /* return piano */
+  /**
+   * Getter for piano
+   * @return piano
+   */
   public Piano getPiano() {
     return this.piano;
   }
   
-  /* setter for isOn */
+  /**
+   * Setter for isOn
+   * @param isOn current state of MultiPlay mode
+   */
   public static void setIsOn(boolean isOn) {
     MultiPlay.isOn = isOn;
   }
   
-  /* getter for isOn */
+  /**
+   * Getter for isOn
+   * @return isOn
+   */
   public static boolean getIsOn() {
     return isOn;
   }
   
-  /* initialize blocking queue */
+  /**
+   * Initialize blocking queue
+   */
   public static void setQueue() {
     MultiPlay.queue = new ArrayBlockingQueue<String>(10);
   }
   
-  /* return blocking queue */
+  /**
+   * Getter for blocking queue
+   * @return queue
+   */
   public static BlockingQueue<String> getQueue() {
     return queue;
   }

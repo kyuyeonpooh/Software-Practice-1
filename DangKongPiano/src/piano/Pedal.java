@@ -12,23 +12,23 @@ import javax.swing.KeyStroke;
 import java.awt.Font;
 
 /**
- * class for pedal of piano
- * @author team2
+ * Class for pedal that compose piano
+ * @author Team 2: Kim Kyu Yeon, Kim Yeon Jae
  *
  */
 public class Pedal {
 	
-  /** state for pedal */
+  /** State of pedal */
   private static boolean isPedaled;  
 
-  /** color for pedal as state */
+  /** Color for pedal ON/OFF */
   private Color color;               
-  /** AbstractAction for pressed */
+  /** Action for pedal pressed */
   private AbstractAction pressed;    
-  /** button for pedal */
+  /** Button for pedal */
   private JButton button;            
 
-  /** constructor */
+  /** Constructor of Pedal */
   public Pedal() {
     this.setIsPedaled(false);
     this.setColor();
@@ -37,14 +37,14 @@ public class Pedal {
   }
   
   /**
-   * class to change color of pedal when pressed
-   * @author team2
+   * Class to change color of pedal when pressed
+   * @author Team 2: Kim Kyu Yeon, Kim Yeon Jae
    *
    */
   private class ColorEffect extends Thread {    
     
+    /** change button's color in red or green */
     @Override
-    /** change button's color */
     public void run() {
       if(button.getBackground() == Color.RED){
         button.setForeground(Color.BLACK);
@@ -61,37 +61,44 @@ public class Pedal {
   }
   
   /**
-   * setter for isPedaled
-   * @param isPedaled set this.isPedaled with it
+   * Setter for isPedaled
+   * @param isPedaled set with this
    */
   public void setIsPedaled(boolean isPedaled) {
     Pedal.isPedaled = isPedaled;
   }  
   
   /**
-   * getter for isPedaled
+   * Getter for isPedaled
    * @return isPedaled
    */
   public static boolean getIsPedaled() {
     return isPedaled;
   }
 
-  /** setter for color */
+  /**
+   * Setter for color
+   */
   public void setColor() {
     this.color = Color.RED;
   }
 
   /**
-   * getter for color
-   * @return Color
+   * Getter for color
+   * @return color
    */
   public Color getColor() {
     return color;
   }
 
-  /** set Action to change isPedaled state when listen */
+  /** 
+   * Set action to change isPedaled state 
+   */
   public void setPressed() {
     this.pressed = new AbstractAction() {
+      /**
+       * Set isPedal to the other state
+       */
       @Override
       public void actionPerformed(ActionEvent evt) {
         Thread effect = new ColorEffect();
@@ -105,14 +112,16 @@ public class Pedal {
   }
 
   /**
-   * getter for pressed 
-   * @return AbstractAction
+   * Getter for pressed 
+   * @return pressed
    */
   public AbstractAction getPressed() {
     return this.pressed;
   }
 
-  /** setter for button */
+  /**
+   * Setter for button
+   */
   public void setButton() {
     this.button = new JButton("OFF");
     this.button.setFont(new Font("Arial Narrow", Font.BOLD | Font.ITALIC, 20));
@@ -126,8 +135,8 @@ public class Pedal {
   }
 
   /**
-   * getter for button
-   * @return JButton
+   * Getter for button
+   * @return button
    */
   public JButton getButton() {
     return button;

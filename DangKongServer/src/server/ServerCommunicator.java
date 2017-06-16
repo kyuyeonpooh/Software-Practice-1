@@ -5,17 +5,32 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+/**
+ * Thread for communicating between server and player
+ * @author Team 2: Kim Kyu Yeon, Kim Yeon Jae
+ * 
+ */
 public class ServerCommunicator extends Thread {
-
-  private Socket socket;  /* socket to communicate with each player */
-  private int id;         /* player number */
   
-  /* constructor for class serer communicator */
+  /** Socket to communicate with each player */
+  private Socket socket;
+  /* Player number */
+  private int id;
+  
+  /**
+   * Constructor of ServerCommunicator
+   * @param socket socket for each player
+   * @param id player number
+   */
   public ServerCommunicator(Socket socket, int id) {
     this.socket = socket;
     this.id = id;
   }
-
+  
+  /**
+   * Send melody to the other player
+   * Player1 to Player2, Player2 to Player1
+   */
   @Override
   public void run() {
     while (true) {

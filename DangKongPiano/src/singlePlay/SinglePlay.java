@@ -9,19 +9,19 @@ import javax.swing.JFrame;
 import piano.Piano;
 
 /**
- * class for single play
- * @author team2
+ * Class with window for multiplay mode
+ * @author Team 2: Kim Kyu Yeon, Kim Yeon Jae
  *
  */
 public class SinglePlay extends JFrame {
   
-  /** state of single play */
+  /** State of single play */
   private static boolean isOn = false;   
   
-  /** piano */
+  /** Piano which will be shown on the screen */
   private Piano piano;                   
 
-  /** constructor for single play */
+  /** Constructor of SinglePlay */
   public SinglePlay() {
     SinglePlay.setIsOn(true);
     setPiano();
@@ -38,7 +38,9 @@ public class SinglePlay extends JFrame {
     });      
   }
   
-  /** set piano to screen */
+  /**
+   * Set piano on the screen
+   */
   public void setPiano(){
     try {
       piano = new Piano();
@@ -51,23 +53,23 @@ public class SinglePlay extends JFrame {
   }
 
   /**
-   * getter for piano
-   * @return Piano
+   * Getter for piano
+   * @return piano
    */
   public Piano getPiano(){
     return this.piano;
   }
   
   /**
-   * setter for isOn
-   * @param isOn set this.isOn with it
+   * Setter for isOn
+   * @param isOn current state of SinglePlay mode
    */
   public static void setIsOn(boolean isOn) {
     SinglePlay.isOn = isOn;
   }
   
   /**
-   * getter for isOn
+   * Getter for isOn
    * @return isOn
    */
   public static boolean getIsOn() {

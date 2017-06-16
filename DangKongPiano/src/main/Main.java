@@ -28,7 +28,7 @@ public class Main extends JFrame {
   
   /** Panel with background, title, and buttons */
   private JPanel mainPanel;  
-  /** title label */
+  /** Title label */
   private JLabel titleLabel;      
   /** Buttons with three play modes */
   private JButton[] buttons;    
@@ -36,14 +36,15 @@ public class Main extends JFrame {
   private AbstractAction pressed;  
   
   /**
-   * 
+   * Main function
+   * @param args nothing
    */
   public static void main(String[] args) {
     new Main();
   }
   
   /**
-   * Constructor for main class
+   * Constructor of Main class
    */
   public Main() {
     setTitle("DangKongPiano");
@@ -59,7 +60,7 @@ public class Main extends JFrame {
   }
   
   /**
-   * set menu panel background with image
+   * Set mainPanel background with given image
    */
   public void setPanel() {
     ImageIcon background = new ImageIcon("./resource/Image/background.jpg");
@@ -74,16 +75,16 @@ public class Main extends JFrame {
   }
   
   /**
-   *  return menu panel 
-   *  @return mainPanel
+   * Getter for mainPanel
+   * @return mainPanel
    */
   public JPanel getPanel() {
     return this.mainPanel;
   }
   
   /**
-   *  set title label 
-   *  @param titleName set title label with this
+   * Setter for titleLabel 
+   * @param titleName set titleLable in this name
    */
   public void setTitleLabel(String titleName) {
     titleLabel = new JLabel();
@@ -96,15 +97,15 @@ public class Main extends JFrame {
   }
   
   /** 
-   * returns title label 
-   * @return void
+   * Getter for titleLabel 
+   * @return titleLable
    */
   public JLabel getTitleLabel() {
     return this.titleLabel;
   }
   
   /**
-   *  set buttons for 3 play modes 
+   * Set each buttons for each three play modes 
    */
   public void setButtons() {
     buttons = new JButton[5];
@@ -122,9 +123,9 @@ public class Main extends JFrame {
   }
   
  /**
-  * set bounds for each button with given image
-  * @param icon  set button with this Image Icon
-  * @param xPos  button's x position
+  * Setter for each button with given image
+  * @param icon set button with this image icon
+  * @param xPos button's x position
   */
   private JButton setButton(ImageIcon icon, int xPos) {
     JButton button = new JButton(icon);
@@ -133,15 +134,21 @@ public class Main extends JFrame {
   }
   
   /**
-   *  return play mode buttons */
+   * Getter for buttons
+   * @return buttons
+   */
   public JButton[] getButtons() {
     return this.buttons;
   }
   
   /**
-   *  set what to do when play mode button is clicked */
+   * Set what to do when each play mode button is clicked
+   */
   public void setPressed() {
     this.pressed = new AbstractAction() {
+      /**
+       * Get action command and start with given command
+       */
       @Override
       public void actionPerformed(ActionEvent evt) {
         String command = evt.getActionCommand();
@@ -162,7 +169,9 @@ public class Main extends JFrame {
   }
   
   /**
-   *  return action for press */
+   * Getter for pressed
+   * @return pressed
+   */
   public AbstractAction getPressed() {
     return this.pressed;
   }

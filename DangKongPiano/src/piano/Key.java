@@ -2,10 +2,8 @@ package piano;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.net.Socket;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -20,18 +18,35 @@ import javax.swing.KeyStroke;
 import multiPlay.MultiPlay;
 import songPractice.PlayMusic;
 
-/* key class forms keyboard */
+/**
+ * Key class forms keyboard
+ * @author Team 2 ; Kim Kyu Yeon, Kim Yeon Jae
+ *
+ */
 public class Key {
 
-  private String melody;                      /* melody name for each key */
-  private Color color;                        /* black or white color */
-  private File soundFile;                     /* sound file which will be played */
-  private AudioInputStream audioInputStream;  /* audio stream needed to play music file */
-  private Clip clip;                          /* clip needed for audio stream */
-  private AbstractAction pressed;             /* action what to do when key is pressed */
-  private JButton button;                     /* key button on the screen */
+  /** Melody name for each key */
+  private String melody;           
+  /** Black or white color */
+  private Color color;       
+  /** Sound file which will be played */
+  private File soundFile;               
+  /** Audio stream needed to play music file */
+  private AudioInputStream audioInputStream;  
+  /** Clip needed for audio stream */
+  private Clip clip;                 
+  /** Action what to do when key is pressed */
+  private AbstractAction pressed;             
+  /** Key button on the screen */
+  private JButton button;                     
   
-  /* constructor for key class */
+  /**
+   * Constructor of key class
+   * @param melody melody name for each key
+   * @param keyCode	key code for listening action
+   * @param xBound x position of button bound
+   * @throws IOException for invalid sound file
+   */
   public Key(String melody, int keyCode, int xBound) throws IOException {
     this.setMelody(melody);
     this.setColor();
@@ -39,9 +54,16 @@ public class Key {
     this.setButton(keyCode, xBound);
   }
   
-  /* color effect which shows what user pressed with gray color */
+  /**
+   * Color effect which paints key in gray color which user pressed
+   * @author Team2 : Kim Kyu Yeon, Kim Yeon Jae
+   *
+   */
   private class ColorEffect extends Thread {
-    
+        
+    /**
+     * Change color of button in gray color for 200ms
+     */
     @Override
     public void run() {
       button.setBackground(Color.GRAY);
@@ -55,12 +77,19 @@ public class Key {
     
   }
   
-  /* setter for melody name */
+  /**
+   * Setter for melody name
+   * @param melody set melody name with this
+   */
   public void setMelody(String melody) {
     this.melody = melody;
   }
   
-  /* revise melody when pedal mode is on */
+  /**
+   * Revise melody when pedal mode is on
+   * @param melody original
+   * @return melody revised
+   */
   public String reviseMelody(String melody) {
     if (Pedal.getIsPedaled())
       return melody + "_Pedal";
@@ -68,12 +97,15 @@ public class Key {
       return melody;
   }
   
-  /* return melody name */
+  /**
+   * Return melody name
+   * @return melody
+   */
   public String getMelody() {
     return this.melody;
   }
   
-  /* set which color among white and black */
+  /** Set which color among white and black */
   public void setColor() {
     if (this.melody.length() > 2)
       this.color = Color.BLACK;
@@ -81,22 +113,31 @@ public class Key {
       this.color = Color.WHITE;
   }
   
-  /* getter for color */
+  /**
+   * Getter for color
+   * @return color
+   */
   public Color getColor() {
     return color;
   }
   
-  /* initialize sound file with given melody */
+  /** Initialize sound file with given melody */
   public void setSoundFile() {
     this.soundFile = new File("./resource/pianoSound/" + this.reviseMelody(this.melody) + ".wav");
   }
   
-  /* getter for sound file */
+  /**
+   * Getter for sound file
+   * @return soundFile
+   */
   public File getSoundFile() {
     return this.soundFile;
   }
   
-  /* initialize audio input stream */
+  /**
+   * Initialize audio input stream
+   * @throws IOException for invalid sound file
+   */
   public void setAudioInputStream() throws IOException {
     try {
       this.setSoundFile();
@@ -106,12 +147,18 @@ public class Key {
     }
   }
   
-  /* getter for audio input stream */
+  /**
+   * Getter for audio input stream
+   * @return autioInputStream
+   */
   public AudioInputStream getAudioInputStream() {
     return this.audioInputStream;
   }
   
-  /* initialize clip which will be used for playing sound file */
+  /**
+   * Initialize clip which will be used for playing sound file
+   * @throws IOException for sound file
+   */
   public void setClip() throws IOException {
     try {
       this.clip = AudioSystem.getClip();
@@ -121,12 +168,15 @@ public class Key {
     }
   }
   
-  /* getter for clip */
+  /**
+   * Getter for clip
+   * @return clip
+   */
   public Clip getClip() {
     return this.clip;
   }
   
-  /* set action for when button is pressed */
+  /** Set action for when button is pressed */
   public void setPressed() {
     this.pressed = new AbstractAction() {
       @Override
@@ -154,16 +204,23 @@ public class Key {
     };
   }
   
-  /* return action */
+  /**
+   * Return pressed
+   * @return pressed
+   */
   public AbstractAction getPressed() {
     return this.pressed;
   }
   
-  /* initialize buttons with bounds and listeners */
+  /**
+   * Initialize buttons with bounds and listeners
+   * @param keyCode unique key code for each key button
+   * @param xBound x position of bound
+   */
   public void setButton(int keyCode, int xBound) {
     this.button = new JButton();
     this.button.addActionListener(this.pressed);
-    /* key bindings with maps */
+    /* Key bindings with maps */
     this.button.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(keyCode, 0), this.melody);
     this.button.getActionMap().put(this.melody, this.pressed);
     this.button.setBackground(this.color);
@@ -173,7 +230,10 @@ public class Key {
       this.button.setBounds(xBound, 101, 60, 200);
   }
   
-  /* return key button */
+  /**
+   * Return key button
+   * @return button
+   */
   public JButton getButton() {
     return button;
   }

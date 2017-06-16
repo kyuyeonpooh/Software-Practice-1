@@ -6,16 +6,28 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 
-/* class for keyboard of piano */
+/**
+ * Class for keyboard that compose piano
+ * @author Team 2 : Kim Kyu Yeon, Kim Yeon Jae
+ *
+ */
 public class Keyboard {
  
-  private String [] melodies;      /* string arrays for melody names for each key */
-  private int [] keyEvents;        /* key event arrays for each key */
-  private int [] buttonBounds;     /* xBounds for each key */
-  private ArrayList<Key> keyboard; /* keyboard with has all keys in array list */
-  private JButton [] buttons;      /* buttons for each key */
+  /** String arrays for melody names for each key */
+  private String [] melodies;     
+  /** Key event arrays for each key */
+  private int [] keyEvents;       
+  /** x bounds for each key */
+  private int [] buttonBounds;     
+  /** Keyboard with has all keys in array list */
+  private ArrayList<Key> keyboard; 
+  /** Buttons for each key */
+  private JButton [] buttons;     
   
-  /* constructor for keyboard */
+  /**
+   * Constructor for Keyboard
+   * @throws IOException for invalid sound file
+   */
   public Keyboard() throws IOException { 
     super();
     this.setMelodies();
@@ -25,7 +37,7 @@ public class Keyboard {
     this.setButtons();
   }
   
-  /* initialize melodies */
+  /** Initialize melodies */
   public void setMelodies() {
     this.melodies = new String []{
       "A0", "B0Flat", "B0", "C1", "C1Sharp",
@@ -37,12 +49,15 @@ public class Keyboard {
     };
   }
     
-  /* getter for melodies */
+  /**
+   * Getter for melodies
+   * @return melodies
+   */
   public String [] getMelodies() {
     return this.melodies;
   }
     
-  /* initialize keyEvents */
+  /** Initialize keyEvents */
   public void setKeyEvents() {
     this.keyEvents = new int[]{
       KeyEvent.VK_Z, KeyEvent.VK_S, KeyEvent.VK_X, KeyEvent.VK_C, KeyEvent.VK_F, 
@@ -54,12 +69,15 @@ public class Keyboard {
     };
   }
     
-  /* getter for keyEvents */
+  /**
+   * Getter for keyEvents
+   * @return keyEvents
+   */
   public int [] getKeyEvents() {
     return this.keyEvents;
   }
     
-  /* initialize buttonBounds */
+  /** Initialize buttonBounds */
   public void setButtonBounds() {
     this.buttonBounds = new int[]{
       25, 52, 83, 141, 169,
@@ -71,12 +89,18 @@ public class Keyboard {
     };
   }
     
-  /* getter for buttonBounds  */
+  /**
+   * Getter for buttonBounds
+   * @return buttonBounds
+   */
   public int [] getButtonBounds() {
     return this.buttonBounds;
   }
 
-  /* add each key to keyboard array list */
+  /**
+   * Add each key to keyboard array list
+   * @throws IOException for invalid sound file
+   */
   public void setKeyboard() throws IOException {
     this.keyboard = new ArrayList<Key> ();    
     for(int i = 0; i < melodies.length; i++){
@@ -85,12 +109,15 @@ public class Keyboard {
     }
   }
   
-  /* getter for keyboard */
+  /**
+   * Getter for keyboard
+   * @return this.keyboard
+   */
   public ArrayList<Key> getKeyboard(){
     return this.keyboard;
   }
   
-  /* set buttons of keyboard */
+  /** Set buttons of keyboard */
   public void setButtons() {
     this.buttons = new JButton[melodies.length];
     for(int i = 0; i < melodies.length; i++){
@@ -98,7 +125,10 @@ public class Keyboard {
     }
   }
      
-  /* getter for buttons */
+  /**
+   * Getter for buttons
+   * @return this.buttons
+   */
   public JButton [] getButtons() {
      return this.buttons;
   }

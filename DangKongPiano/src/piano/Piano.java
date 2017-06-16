@@ -7,20 +7,20 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * class for instantiating piano
- * @author samsung
+ * Class for instantiating piano
+ * @author Team 2: Kim Kyu Yeon, Kim Yeon Jae
  *
  */
 public class Piano extends JPanel {
 
-  /** keyboard for piano */
+  /** Keyboard of piano */
   private Keyboard keyboard;   
-  /** pedal for piano */
+  /** Pedal of piano */
   private Pedal pedal;         
 
   /**
-   * constructor for piano class
-   * @throws IOException
+   * Constructor of Piano
+   * @throws IOException for missing sound file
    */
   public Piano() throws IOException {
     this.setKeyboard();
@@ -30,8 +30,8 @@ public class Piano extends JPanel {
 
   
   /**
-   * initialize keyboard
-   * @throws IOException
+   * Initialize keyboard
+   * @throws IOException for invalid sound file
    */
   public void setKeyboard() throws IOException {
     this.keyboard = new Keyboard();
@@ -39,26 +39,33 @@ public class Piano extends JPanel {
       add(keyboard.getButtons()[i]);
   }
 
-  /** getter for keyboard */
+  /**
+   * Getter for keyboard
+   * @return keyboard
+   */
   public Keyboard getKeyboard() {
     return this.keyboard;
   }
 
-  /** create pedal, and set to screen */
+  /** 
+   * Initialize pedal
+   */
   public void setPedal() {
     this.pedal = new Pedal();
     add(pedal.getButton());
   }
 
   /**
-   * getter for pedal
-   * @return Pedal
+   * Getter for pedal
+   * @return pedal
    */
   public Pedal getPedal() {
     return this.pedal;
   }
 
-  /** set label for "pedal mode" */
+  /**
+   * Set label for "Pedal Mode"
+   */
   public void setPanel() {
     JLabel pedalMode = new JLabel("Pedal Mode");
     pedalMode.setFont(new Font("Arial Narrow", Font.BOLD | Font.ITALIC, 20));

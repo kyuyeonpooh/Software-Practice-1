@@ -10,11 +10,12 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 
 /**
- * class for managing flow of song practice
- * @author team2
+ * Class for managing flow of SongPractice
+ * @author Team 2: Kim Kyu Yeon, Kim Yeon Jae
  *
  */
 public class SongPractice extends JFrame {
+  
   /** button for start playing music */
   private JButton startButton;   
   /** panel for choosing song */
@@ -22,7 +23,9 @@ public class SongPractice extends JFrame {
   /** panel for playing music */
   private PlayMusic playMusic;   
 
-  /** constructor for song practice */
+  /**
+   * Constructor of SongPractice
+   */
   public SongPractice() {
     this.chooseSong = new ChooseSong();
     getContentPane().add(this.chooseSong);
@@ -40,7 +43,9 @@ public class SongPractice extends JFrame {
     });
   }
 
-  /** initialize start button */
+  /**
+   * Initialize start button
+   */
   void setStartButton() {
     startButton = new JButton("START!");
     startButton.setForeground(Color.BLACK);
@@ -67,23 +72,23 @@ public class SongPractice extends JFrame {
   }
 
   /**
-   * getter for startButton
-   * @return startButton for practice song
+   * Getter for startButton
+   * @return startButton
    */
   public JButton getStartButton() {
     return startButton;
   }
 
  /**
-  * setter for chooseSong
-  * @param chooseSong user choose in this panel
+  * Setter for chooseSong
+  * @param chooseSong song user chosen in this panel
   */
   public void setChooseSong(ChooseSong chooseSong) {
     this.chooseSong = chooseSong;
   }
 
  /**
-  * getter for chooseSong
+  * Getter for chooseSong
   * @return chooseSong
   */
   public ChooseSong getChooseSong() {
@@ -91,16 +96,16 @@ public class SongPractice extends JFrame {
   }
 
   /**
-   * setter for playMusic
-   * @param playMusic set PlayMusic with it
+   * Setter for playMusic
+   * @param playMusic set with this
    */
   public void setPlayMusic(PlayMusic playMusic) {
     this.playMusic = playMusic;
   }
 
   /**
-   * getter for playMusic
-   * @return PlayMusic
+   * Getter for playMusic
+   * @return playMusic
    */
   public PlayMusic getPlayMusic() {
     return playMusic;
