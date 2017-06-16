@@ -11,7 +11,11 @@ import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 import java.awt.Font;
 
-/* class for pedal of piano */
+/**
+ * class for pedal of piano
+ * @author samsung
+ *
+ */
 public class Pedal {
   
   private static boolean isPedaled;  /* state for pedal */
@@ -20,7 +24,7 @@ public class Pedal {
   private AbstractAction pressed;    /* AbstractAction for pressed */
   private JButton button;            /* button for pedal */
 
-  /* constructor */
+  /** constructor */
   public Pedal() {
     this.setIsPedaled(false);
     this.setColor();
@@ -28,11 +32,15 @@ public class Pedal {
     this.setButton();
   }
   
-  /* class to change color of pedal when pressed */
+  /**
+   * class to change color of pedal when pressed
+   * @author team2
+   *
+   */
   private class ColorEffect extends Thread {    
     
     @Override
-    /* change button's color */
+    /** change button's color */
     public void run() {
       if(button.getBackground() == Color.RED){
         button.setForeground(Color.BLACK);
@@ -48,27 +56,36 @@ public class Pedal {
     
   }
   
-  /* setter for isPedaled */
+  /**
+   * setter for isPedaled
+   * @param isPedaled set this.isPedaled with it
+   */
   public void setIsPedaled(boolean isPedaled) {
     Pedal.isPedaled = isPedaled;
   }  
   
-  /* getter for isPedaled */
+  /**
+   * getter for isPedaled
+   * @return isPedaled
+   */
   public static boolean getIsPedaled() {
     return isPedaled;
   }
 
-  /* setter for color */
+  /** setter for color */
   public void setColor() {
     this.color = Color.RED;
   }
 
-  /* getter for color */
+  /**
+   * getter for color
+   * @return Color
+   */
   public Color getColor() {
     return color;
   }
 
-  /* set Action to change isPedaled state when listen */
+  /** set Action to change isPedaled state when listen */
   public void setPressed() {
     this.pressed = new AbstractAction() {
       @Override
@@ -83,12 +100,15 @@ public class Pedal {
     };
   }
 
-  /* getter for pressed */
+  /**
+   * getter for pressed 
+   * @return AbstractAction
+   */
   public AbstractAction getPressed() {
     return this.pressed;
   }
 
-  /* setter for button */
+  /** setter for button */
   public void setButton() {
     this.button = new JButton("OFF");
     this.button.setFont(new Font("Arial Narrow", Font.BOLD | Font.ITALIC, 20));
@@ -101,7 +121,10 @@ public class Pedal {
     this.button.setBounds(970, 101, 101, 101);
   }
 
-  /*getter for button */
+  /**
+   * getter for button
+   * @return JButton
+   */
   public JButton getButton() {
     return button;
   }

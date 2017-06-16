@@ -16,37 +16,47 @@ public class Piano extends JPanel {
   private Keyboard keyboard;   /* keyboard for piano */
   private Pedal pedal;         /* pedal for piano */
 
-  /* constructor for piano class */
+  /**
+   * constructor for piano class
+   * @throws IOException
+   */
   public Piano() throws IOException {
     this.setKeyboard();
     this.setPedal();
     this.setPanel();
   }
 
-  /* initialize keyboard */
+  
+  /**
+   * initialize keyboard
+   * @throws IOException
+   */
   public void setKeyboard() throws IOException {
     this.keyboard = new Keyboard();
     for (int i = 0; i < keyboard.getMelodies().length; i++)
       add(keyboard.getButtons()[i]);
   }
 
-  /* getter for keyboard */
+  /** getter for keyboard */
   public Keyboard getKeyboard() {
     return this.keyboard;
   }
 
-  /* create pedal, and set to screen */
+  /** create pedal, and set to screen */
   public void setPedal() {
     this.pedal = new Pedal();
     add(pedal.getButton());
   }
 
-  /* getter for pedal */
+  /**
+   * getter for pedal
+   * @return Pedal
+   */
   public Pedal getPedal() {
     return this.pedal;
   }
 
-  /* set label for "pedal mode" */
+  /** set label for "pedal mode" */
   public void setPanel() {
     JLabel pedalMode = new JLabel("Pedal Mode");
     pedalMode.setFont(new Font("Arial Narrow", Font.BOLD | Font.ITALIC, 20));
