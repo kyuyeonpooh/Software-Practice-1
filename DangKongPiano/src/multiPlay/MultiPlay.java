@@ -22,7 +22,11 @@ import piano.Keyboard;
 import piano.Pedal;
 import piano.Piano;
 
-/* new window generated for multiplay */
+/**
+ * class with window for multiplay mode
+ * @author Team 2: Kim Kyu Yeon, Kim Yeon Jae
+ *
+ */
 public class MultiPlay extends JFrame {
 
   private static boolean isOn = false;        /* state of multiplay */
@@ -34,7 +38,9 @@ public class MultiPlay extends JFrame {
   private ClientReceiver receiver;             /* thread which receives melody from other player */
   private HashMap<String, Integer> melodyHash; /* hash map whose key is melody name and value is index number in Keyboard */
   
-  /* constructor for multiplay */
+  /**
+   * constructor of MultiPlay
+   */
   public MultiPlay() {
     MultiPlay.setIsOn(true);
     setQueue();
@@ -57,7 +63,11 @@ public class MultiPlay extends JFrame {
     });
   }
   
-  /* thread to send melodies that user pressed to server */
+  /**
+   * thread which constantly send melodies that user pressed to server
+   * @author Team 2: Kim Kyu Yeon, Kim Yeon Jae
+   * 
+   */
   private class ClientSender extends Thread {
 
     @Override
@@ -77,7 +87,11 @@ public class MultiPlay extends JFrame {
 
   }
   
-  /* thread to receive melodies that other user pressed from server */
+  /**
+   * thread which constantly receive melodies that other user pressed from server
+   * @author Team 2: Kim Kyu Yeon, Kim Yeon Jae
+   *
+   */
   private class ClientReceiver extends Thread {
 
     @Override
@@ -98,11 +112,19 @@ public class MultiPlay extends JFrame {
     }
   }
   
-  /* thread that shows which key other player pressed with red color */
+  /**
+   * thread which paints keys that other player pressed in red color
+   * @author Team 2: Kim Kyu Yeon, Kim Yeon Jae
+   *
+   */
   private class MultiColorEffect extends Thread {
 
     private String melody; /* melody that other player pressed */
-
+    
+    /**
+     * constructor for MultiColorEffect
+     * @param melody 
+     */
     private MultiColorEffect(String melody) {
       this.melody = melody;
     }
