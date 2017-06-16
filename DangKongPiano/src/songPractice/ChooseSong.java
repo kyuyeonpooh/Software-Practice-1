@@ -8,17 +8,25 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+/**
+ * class for choosing song among list 
+ * @author team 2
+ *
+ */
 
-/* class for choosing song among list */
 public class ChooseSong extends JPanel implements ListSelectionListener {
+  /** list of songs to screen */
+  private JList<String> list;     
+  /** list of songs in project */
+  private String[] songList;      
+  /** listScroll for selecting music */
+  private JScrollPane listScroll; 
+  /** show whether user choose something */
+  private JLabel textLabel;       
+  /** String for selected music */
+  private String selectedSong;    
 
-  private JList<String> list;     /* list of songs to screen */
-  private String[] songList;      /* list of songs in project */
-  private JScrollPane listScroll; /* listScroll for selecting music */
-  private JLabel textLabel;       /* show whether user choose something */
-  private String selectedSong;    /* String for selected music */
-
-  /* constructor */
+  /** constructor */
   public ChooseSong() {
     setLayout(null);
     setSongList();
@@ -26,14 +34,20 @@ public class ChooseSong extends JPanel implements ListSelectionListener {
     setTextLabel();
   }
 
-  /* get selected song */
+
+  /**
+   * get selected song
+   * @param evt  Event selecting among list
+   */
   public void valueChanged(ListSelectionEvent evt) {
     int selected = list.getSelectedIndex();
     textLabel.setText("<" + songList[selected] + "> is selected!");
     selectedSong = songList[selected];
   }
 
-  /* set list, and show to user */
+  /**
+   *  set list, and show to user 
+   */
   public void setList() {
     listScroll = new JScrollPane();
     listScroll.setBounds(14, 115, 1037, 351);
@@ -47,33 +61,42 @@ public class ChooseSong extends JPanel implements ListSelectionListener {
     list.addListSelectionListener(this);
   }
 
-  /* return list */
+  /**
+   *  return list 
+   */
   public JList<String> getList() {
     return this.list;
   }
 
-  /* set list of songs */
+  /**
+   *  set list of songs */
   public void setSongList() {
     String[] list = { "School Bell", "Little Star", "Mountain Rabbit", "Baduk's Ring", "Cannon" };
     songList = list.clone();
   }
 
-  /* return list of songs */
+  /**
+   *  return list of songs */
   public String[] getSongList() {
     return this.songList;
   }
 
-  /* set list scroll */
+  /**
+   * set List scroll 
+   * @param listScroll list scroll for song lists
+   */
   public void setListScroll(JScrollPane listScroll) {
     this.listScroll = listScroll;
   }
 
-  /* return list of songs */
+  /**
+   *  return list of songs */
   public JScrollPane getListScroll() {
     return listScroll;
   }
 
-  /* show state whether user select song */
+  /**
+   *  show state whether user select song */
   void setTextLabel() {
     textLabel = new JLabel("Choose Song!");
     textLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 40));
@@ -81,17 +104,20 @@ public class ChooseSong extends JPanel implements ListSelectionListener {
     add(textLabel);
   }
 
-  /* return state(textLabel) */
+  /**
+   *  return state(textLabel) */
   public JLabel getTextLabel() {
     return textLabel;
   }
 
-  /* setter for variable : selected song */
+  /**
+   *  setter for variable : selected song */
   public void setSelectedSong(String selectedSong) {
     this.selectedSong = selectedSong;
   }
 
-  /* getter for variable : selected song */
+  /**
+   *  getter for variable : selected song */
   public String getSelectedSong() {
     return selectedSong;
   }

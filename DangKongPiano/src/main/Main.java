@@ -68,7 +68,6 @@ public class Main extends JFrame {
   
   /**
    * set menu panel background with image
-   * @return void
    */
   public void setPanel() {
     ImageIcon background = new ImageIcon("./resource/Image/background.jpg");
@@ -93,7 +92,6 @@ public class Main extends JFrame {
   /**
    *  set title label 
    *  @param titleName set title label with this
-   *  @return void
    */
   public void setTitleLabel(String titleName) {
     titleLabel = new JLabel();
@@ -115,8 +113,7 @@ public class Main extends JFrame {
   
   /**
    *  set buttons for 3 play modes 
-   *  @return void
-   *  */
+   */
   public void setButtons() {
     buttons = new JButton[5];
     String[] buttonNames = { "SinglePlay", "MultiPlay", "SongPractice" };
@@ -136,7 +133,6 @@ public class Main extends JFrame {
   * set bounds for each button with given image
   * @param icon  set button with this Image Icon
   * @param xPos  button's x position
-  * @return
   */
   private JButton setButton(ImageIcon icon, int xPos) {
     JButton button = new JButton(icon);
