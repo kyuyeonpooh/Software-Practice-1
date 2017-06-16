@@ -63,7 +63,7 @@ public class MultiPlay extends JFrame {
     @Override
     public void run() {
       try {
-        socket = new Socket("115.145.178.216", 18802);
+        socket = new Socket("localhost", 5000);
         DataInputStream message = new DataInputStream(socket.getInputStream());
         System.out.println(message.readUTF());
         while (true) {

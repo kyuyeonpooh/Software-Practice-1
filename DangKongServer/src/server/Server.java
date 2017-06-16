@@ -25,7 +25,7 @@ public class Server {
 
   /* setter for server */
   public static void setServer() throws IOException {
-    server = new ServerSocket(18802);
+    server = new ServerSocket(5000);
     System.out.println("Server is ready.");
   }
 
