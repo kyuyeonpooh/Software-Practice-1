@@ -13,7 +13,7 @@ import java.awt.Font;
 
 /**
  * class for pedal of piano
- * @author samsung
+ * @author team2
  *
  */
 public class Pedal {
