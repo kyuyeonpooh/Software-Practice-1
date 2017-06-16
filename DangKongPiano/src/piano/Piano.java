@@ -13,8 +13,10 @@ import javax.swing.JPanel;
  */
 public class Piano extends JPanel {
 
-  private Keyboard keyboard;   /* keyboard for piano */
-  private Pedal pedal;         /* pedal for piano */
+  /** keyboard for piano */
+  private Keyboard keyboard;   
+  /** pedal for piano */
+  private Pedal pedal;         
 
   /**
    * constructor for piano class

@@ -21,15 +21,21 @@ import java.util.concurrent.BlockingQueue;
  *
  */
 public class PlayMusic extends JPanel {
+  /** in order to check what user type */
+  private static BlockingQueue<String> queue; 
+  /** state of PlayMusic */
+  private static boolean isOn = false;       
 
-  private static BlockingQueue<String> queue; /* in order to check what user type */
-  private static boolean isOn = false;       /* state of PlayMusic */
-
-  private Piano piano;            /* piano which will be on the screen */
-  private String song;            /* name of selected song */
-  private BufferedReader reader;  /* reader melody from music score file */
-  private String[] tokens;        /* array of melodies in score file */
-  JLabel[] text;                  /* show score on the screen */
+  /** piano which will be on the screen */
+  private Piano piano;          
+  /** name of selected song */
+  private String song;            
+  /** reader melody from music score file */
+  private BufferedReader reader;  
+  /** array of melodies in score file */
+  private String[] tokens;    
+  /** show score on the screen */
+  JLabel[] text;                  
 
   /**
    * constructor for play music

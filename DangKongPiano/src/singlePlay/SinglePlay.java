@@ -14,10 +14,12 @@ import piano.Piano;
  *
  */
 public class SinglePlay extends JFrame {
-
-  private static boolean isOn = false;   /* state of single play */
   
-  private Piano piano;                   /* piano */
+  /** state of single play */
+  private static boolean isOn = false;   
+  
+  /** piano */
+  private Piano piano;                   
 
   /** constructor for single play */
   public SinglePlay() {

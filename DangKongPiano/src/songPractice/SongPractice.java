@@ -15,10 +15,12 @@ import java.awt.Color;
  *
  */
 public class SongPractice extends JFrame {
-
-  private JButton startButton;   /* button for start playing music */
-  private ChooseSong chooseSong; /* panel for choosing song */
-  private PlayMusic playMusic;   /* panel for playing music */
+  /** button for start playing music */
+  private JButton startButton;   
+  /** panel for choosing song */
+  private ChooseSong chooseSong;
+  /** panel for playing music */
+  private PlayMusic playMusic;   
 
   /** constructor for song practice */
   public SongPractice() {

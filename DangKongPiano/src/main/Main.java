@@ -26,10 +26,14 @@ import java.awt.Color;
  */
 public class Main extends JFrame {
   
-  private JPanel mainPanel;       /* panel with background, title, and buttons */
-  private JLabel titleLabel;      /* title label */
-  private JButton[] buttons;      /* buttons with 3 play modes */
-  private AbstractAction pressed;  /* action what to do when each button is pressed */
+  /** panel with background, title, and buttons */
+  private JPanel mainPanel;  
+  /** title label */
+  private JLabel titleLabel;      
+  /** buttons with 3 play modes */
+  private JButton[] buttons;    
+  /** action what to do when each button is pressed */
+  private AbstractAction pressed;  
   
   /**
    * 

@@ -17,12 +17,16 @@ import java.awt.Font;
  *
  */
 public class Pedal {
-  
-  private static boolean isPedaled;  /* state for pedal */
+	
+  /** state for pedal */
+  private static boolean isPedaled;  
 
-  private Color color;               /* color for pedal as state */
-  private AbstractAction pressed;    /* AbstractAction for pressed */
-  private JButton button;            /* button for pedal */
+  /** color for pedal as state */
+  private Color color;               
+  /** AbstractAction for pressed */
+  private AbstractAction pressed;    
+  /** button for pedal */
+  private JButton button;            
 
   /** constructor */
   public Pedal() {
