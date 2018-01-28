@@ -5,9 +5,11 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 
+import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.AbstractAction;
@@ -38,7 +40,8 @@ public class Key {
   /** Action what to do when key is pressed */
   private AbstractAction pressed;             
   /** Key button on the screen */
-  private JButton button;                     
+  private JButton button;    
+  private DataLine.Info info;
   
   /**
    * Constructor of key class
@@ -142,6 +145,8 @@ public class Key {
     try {
       this.setSoundFile();
       this.audioInputStream = AudioSystem.getAudioInputStream(this.soundFile);
+      AudioFormat format = audioInputStream.getFormat();
+      info = new DataLine.Info(Clip.class, format);
     } catch (UnsupportedAudioFileException e) {
       e.printStackTrace();
     }
@@ -161,7 +166,7 @@ public class Key {
    */
   public void setClip() throws IOException {
     try {
-      this.clip = AudioSystem.getClip();
+      this.clip = (Clip) AudioSystem.getLine(info);
       this.clip.open(this.audioInputStream);
     } catch (LineUnavailableException e) {
       e.printStackTrace();
